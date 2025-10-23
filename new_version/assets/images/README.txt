@@ -1,0 +1,1 @@
+Place your images here (hero, gallery, etc.). You can reference them as assets/filename.jpg in index.html.

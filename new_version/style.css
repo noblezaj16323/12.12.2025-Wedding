@@ -1,0 +1,691 @@
+:root{
+  --navy:#0f2745; /* Color of the nav */
+  --navy-700:#0b1a30;
+  --rose:#e7c2c0;
+  --rose-200:#e7edf6; /* Color when hovering the top */
+  --ink:#121417; /* Color of the title header per section b links*/
+  --muted:#5b677a; /* Color of the subtitle header per sectionblinks #e8ecf2*/
+  --line:#e8ecf2; /* Color of the border line #fff;*/
+  --card:#fff; /* Color background for scheule of events cards, captured moments, attires and colors and wedding rsvp box #fff;*/
+  --bg-a:#f7f9fc; /* Color background for scheule, entourage, FAQ */
+  --bg-b:#eef3f9;/* Overall background*/
+   --bg-c:#F9F8F6;/* Overall background*/
+  --radius:18px;
+  --shadow:0 12px 34px rgba(10,20,44,.08);
+  --max:1100px;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--bg-a),var(--bg-b))}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--navy);text-decoration:none}
+#entourage {
+  background: var(--bg-c);
+}
+
+.container{width:min(var(--max),92vw);margin-inline:auto}
+.section{padding:64px 0}
+.section.alt{background:var(--card)}
+.center{text-align:center}
+.subtle{color:var(--muted)}
+.pill{display:inline-block;border:1px solid var(--line);padding:.35rem .75rem;border-radius:999px;font-size:.9rem;color:var(--navy);background:#fff}
+.h-giant{text-align:center;font-family:'Great Vibes',cursive;font-weight:400;line-height:1;letter-spacing:.5px}
+.h-giant span{display:inline-block}
+.h1{font-family:'Great Vibes',cursive;
+  font-size:clamp(2rem,4vw,3rem);
+  line-height:1.1;
+  margin:0 0 .25rem;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased; /* makes the curves cleaner */
+  -moz-osx-font-smoothing: grayscale;
+}
+.h2{font-family:'Great Vibes',cursive;
+  font-size:clamp(1.5rem,3vw,2rem);
+  line-height:1.2;margin:0 0 1rem;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased; /* makes the curves cleaner */
+  -moz-osx-font-smoothing: grayscale;
+
+}
+.h3{font-weight:600;margin:.25rem 0 .5rem}
+.lede{font-size:clamp(1rem,1.25vw,1.1rem);color:var(--muted)}
+.grid{display:grid;gap:20px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:900px){.grid-3{grid-template-columns:1fr 1fr}}
+@media (max-width:720px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+/* NAV */
+header{
+  position:sticky;top:0;z-index:20;background:rgba(255,255,255,.8);
+  backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--line)
+}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--navy)}
+.brand .monogram{
+  font-family:'Great Vibes',cursive;font-size:28px;line-height:1;background:linear-gradient(90deg,var(--navy),#5670a3);
+  -webkit-background-clip:text;background-clip:text;color:transparent
+}
+.brand img {
+  height: 50px;          /* reduce or increase this value as needed */
+  width: auto;           /* maintain aspect ratio */
+  display: block;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  background: transparent;
+}
+.links{display:flex;gap:18px;align-items:center}
+.links a{padding:8px 10px;border-radius:10px;font-weight:500;color:var(--navy)}
+.links a:hover{background:var(--rose-200)}
+.nav-toggle{display:none;border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 10px}
+@media (max-width:900px){
+  .links{position:fixed;inset:56px 12px auto 12px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;box-shadow:var(--shadow);flex-direction:column;align-items:flex-start;padding:14px;display:none}
+  .links.show{display:flex}
+  .nav-toggle{display:inline-flex}
+}
+
+/* HERO */
+/* FAlling leaves */
+/* Global layer behind everything */
+#leaf-layer{
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Ensure your page content sits above the leaves */
+header, .hero, .section, footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* Leaves: behind + smoother animation */
+img.leaf {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+  opacity: 0.9;
+  user-select: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* Keep hero overlay between leaves and text (for readability) */
+.hero.with-bg::before {
+  z-index: 0;  /* 👈 changed from 1 to 0 */
+}
+
+
+.hero-wrap {
+  position: relative;
+  z-index: 2;              /* ✅ keep text in front */
+}
+
+
+.hero {
+  /* Remove large top padding so flex can truly center it */
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+
+  /* Center content vertically & horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;    /* full screen height */
+  text-align: center;
+}
+
+
+.hero.with-bg {
+  position: relative;
+  min-height: 100vh;                     /* Full screen height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  /* Background image */
+  background: url('assets/images/sample2.jpg') center center / cover no-repeat;
+  color: #fff;
+}
+
+.hero.with-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);       /* Overlay for text readability */
+  z-index: 0;
+}
+
+.hero-wrap {
+  position: relative;
+  z-index: 1;                           /* Content stays above overlay */
+  display: grid;
+  gap: 28px;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.names {
+  font-size: clamp(44px, 8vw, 78px);
+}
+
+.names .amp {
+  font-size: .75em;
+  opacity: .8;
+  margin-inline: .15em;
+}
+
+.date-pill {
+  margin-top: 10px;
+}
+
+.hero-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+}
+
+.btn {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 14px;
+  border: 1px solid var(--navy);
+  color: #fff;
+  background: var(--navy);
+  font-weight: 600;
+}
+
+.btn:hover {
+  background: var(--navy-700);
+}
+
+.btn.alt {
+  background: #fff;
+  color: var(--navy);
+  border-color: var(--line);
+}
+
+.slide-down,
+.slide-down .card {
+  transform: translateY(-80px);
+  opacity: 0;
+}
+
+.slide-down.animate,
+.slide-down .card.animate {
+  animation: slideDown 1s ease-out forwards;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-80px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+/* CARDS */
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:22px
+}
+.time{font-family:'Playfair Display',serif;font-weight:700;color:var(--navy)}
+.addr{color:var(--muted);font-size:.98rem}
+.stack-6 > * + *{margin-top:6px}
+.stack-10 > * + *{margin-top:10px}
+
+/* Schedule Section */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.venue-card {
+  position: relative; /* needed for hover overlay */
+  display: flex;
+  align-items: flex-start;
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden; /* ensures overlay stays inside card */
+}
+
+.venue-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+.venue-icon img {
+  width: 50px;
+  height: 50px;
+  margin-right: 1rem;
+}
+
+.venue-details {
+  flex: 1;
+}
+
+.venue-title {
+  font-weight: 700;
+  color: #1c84c4;
+  margin-bottom: 0.25rem;
+}
+
+.venue-time {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.venue-name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.venue-addr {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+/* ==========================================
+   📍 Venue Buttons Container Styling
+   Keeps "View Map" and "Directions" buttons 
+   side by side and visible above the overlay.
+========================================== */
+.venue-buttons {
+  display: flex;          /* places buttons in a horizontal row */
+  gap: 0.5rem;            /* space between each button */
+  flex-wrap: wrap;        /* allows wrapping to next line on smaller screens */
+  position: relative;     /* enables z-index positioning */
+  z-index: 2;             /* ensures buttons stay above the hover image */
+}
+
+/* ==========================================
+   🧭 Button Styling (Alt Style)
+   Default state: transparent background with 
+   orange border and text.
+========================================== */
+.btn.alt {
+  background: transparent;       /* transparent background by default */
+  border: 1px solid #1c6ac4;     /* orange border color */
+  color: #050505;               /* orange text color */
+  font-size: 0.9rem;            /* slightly smaller text size */
+  padding: 0.4rem 0.8rem;       /* vertical and horizontal spacing inside */
+  border-radius: 6px;           /* rounded corners */
+  text-decoration: none;       /* removes underline on links */
+  transition: all 0.2s ease;    /* smooth transition when hovering */
+}
+
+/* ==========================================
+   ✨ Button Hover Effect
+   When hovered: background turns orange,
+   text becomes white, border blends in.
+========================================== */
+.btn.alt:hover {
+  background: #7373b6;    /* fill background with orange */
+  color: #080808;           /* switch text color to white */
+}
+
+
+.venue-hover-image {
+  position: absolute;          /* positions the overlay relative to the venue card */
+  inset: 0;                    /* makes the overlay cover the entire card */
+  display: flex;               /* enables flexbox for easy centering */
+  justify-content: center;     /* centers the image horizontally */
+  align-items: center;         /* centers the image vertically */
+  background: rgba(249, 245, 245, 0.55);/* semi-transparent black background overlay */
+  opacity: 0;                  /* initially hidden (fully transparent) */
+  pointer-events: none;        /* allows clicks to pass through to buttons/text */
+  transition: opacity 0.4s ease; /* smooth fade-in/fade-out effect */
+  z-index: 1;                  /* places the overlay behind the buttons/text */
+}
+
+
+.venue-hover-image img {
+  max-width: 85%;
+  max-height: 65%;             /* ✅ limits image height so it won’t overlap buttons */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transform: scale(0.95) translateY(0px);
+  transition: transform 0.4s ease;
+  object-fit: cover;          /* keeps the image proportion */
+}
+
+.venue-card:hover .venue-hover-image {
+  opacity: 1;
+}
+
+.venue-card:hover .venue-hover-image img {
+  transform: scale(1) translateY(-40px); /* 👈 moves up slightly but stays in bounds */
+}
+
+
+
+/* QUOTE */
+.quote{
+  background:linear-gradient(180deg,#fff,#f9fbff);border:1px solid var(--line);
+  border-radius:var(--radius);box-shadow:var(--shadow);padding:26px
+}
+blockquote{margin:0;font-family:'Playfair Display',serif;font-size:clamp(1.1rem,1.6vw,1.35rem);color:var(--navy)}
+cite{display:block;margin-top:10px;color:var(--muted);font-style:normal}
+
+/* GALLERY */
+.gallery{display:grid;gap:10px;grid-template-columns:repeat(6,1fr)}
+.gallery img{width:100%;height:180px;object-fit:cover;border-radius:12px}
+@media (max-width:1100px){.gallery{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:720px){.gallery{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- Entourage Layout ---------- */
+.ent-grid{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);   /* 12-col desktop grid */
+  gap: clamp(12px, 2vw, 24px) clamp(16px, 3vw, 40px);
+  max-width: min(1100px, 92vw);
+  margin: 0 auto;                           /* CENTER whole block */
+  align-items:start;
+}
+
+/* Cards */
+.ent-grid .card{
+  background: transparent;
+  border: none;
+  border-radius: 14px;
+  box-shadow: none;
+  padding: 18px 22px;
+  text-align: center;
+}
+
+/* Headings + lists */
+.script{ font-family:'Great Vibes',cursive; }
+.h-sub{ font-size: clamp(1.1rem, 2.2vw, 1.6rem); margin: 0 0 .35rem; font-weight: normal; }
+.no-bullets{ list-style:none; margin:0; padding:0; color:#5670a3}
+.no-bullets.tight li{ margin:.22rem 0; color:#5670a3}
+.cols-2{ display:grid; grid-template-columns:1fr 1fr; gap: 8px 28px; }
+#entourage p {
+  color:#5670a3
+}
+/* ---------- Desktop placement (>= 900px) ---------- */
+/* Center the top block perfectly */
+.principal{ grid-column: 2 / span 10; max-width: 760px; margin: 0 auto; }
+
+/* Row of parents */
+.parents-groom { grid-column: 2 / span 5; }
+.parents-bride { grid-column: 7 / span 5; }
+
+/* Row of best man / maid of honor */
+.bestman     { grid-column: 2 / span 5; }
+.maidofhonor { grid-column: 7 / span 5; }
+
+/* Row of three: groomsmen / bridesmaids / veil */
+.groomsmen   { grid-column: 1 / span 4; 
+               justify-self: center;       /* centers the card horizontally */
+               text-align: center;         /* centers the text inside */ }
+.bridesmaids { grid-column: 5 / span 4;
+              justify-self: center;       /* centers the card horizontally */
+               text-align: center;         /* centers the text inside */ }
+
+.veil {
+  grid-column: 4 / span 6;    /* shifts it to the middle columns */
+  justify-self: center;       /* centers the card horizontally */
+  text-align: center;         /* centers the text inside */
+}
+
+/* Row of two: cord / candle */
+.cord   { grid-column: 1 / span 6; }
+.candle { grid-column: 7 / span 6; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px){
+  .ent-grid{
+    grid-template-columns: 1fr;  /* stack */
+    gap: 14px;
+  }
+  .ent-grid > *{
+    grid-column: 1 / -1 !important;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .cols-2{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 520px){
+  .cols-2{ grid-template-columns: 1fr; } /* single column lists on small phones */
+}
+
+
+
+
+/* DRESS CODE */
+.swatches{display:grid;gap:10px;grid-template-columns:repeat(8,1fr)}
+.swatch{
+  border-radius:12px;aspect-ratio:1/1;border:1px solid rgba(0,0,0,.06);box-shadow:0 2px 8px rgba(0,0,0,.04)
+}
+@media (max-width:900px){.swatches{grid-template-columns:repeat(6,1fr)}}
+@media (max-width:640px){.swatches{grid-template-columns:repeat(4,1fr)}}
+.palette-container {
+  display: flex;
+  justify-content: center;   /* centers the group */
+  gap: 20px;                 /* space between palettes */
+  margin-top: 18px;
+  flex-wrap: wrap;           /* allows stacking on mobile */
+}
+/* FAQS */
+/* ✅ Main FAQ dropdown */
+details {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  padding: 14px 16px;
+}
+details + details {
+  margin-top: 10px;
+}
+summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--navy);
+}
+details[open] {
+  box-shadow: var(--shadow);
+}
+
+/* ✨ Nested dropdown styling */
+.details2 {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f9fbff;  /* light background to distinguish */
+  padding: 10px 12px;
+  margin-top: 8px;
+}
+.summary2 {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--navy);
+}
+.details2[open] {
+  box-shadow: var(--shadow);
+}
+
+/* Remove default arrows */
+summary::-webkit-details-marker,
+.summary2::-webkit-details-marker {
+  display: none;
+}
+
+/* Add custom arrow icons */
+summary::after,
+.summary2::after {
+  content: "▾";
+  float: right;
+  transition: transform 0.2s ease;
+}
+details[open] > summary::after,
+.details2[open] > .summary2::after {
+  transform: rotate(180deg);
+}
+  .subtle a {
+    color: #0078d7; /* Default link color */
+    text-decoration: none;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+  }
+
+  .subtle a:hover {
+    color: #0056a3; /* Darker on hover */
+    text-decoration: underline;
+  }
+.info-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;   /* stack items vertically */
+  gap: 6px;                 /* space between lines */
+}
+
+.info-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.info-list .icon {
+  min-width: 1.4em;         /* fixed width so icons align */
+  text-align: center;
+}
+
+.info-list a {
+  text-decoration: underline;
+  color: #1a73e8;           /* or match your theme */
+  word-break: break-word;   /* prevents overflow on small screens */
+}
+
+.info-list a:hover {
+  text-decoration: none;
+}
+
+/* RSVP */
+.form{display:grid;gap:12px}
+.field{display:grid;gap:6px}
+.field input,.field select,.field textarea{
+  padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#fff;font:inherit
+}
+.notice{font-size:.95rem;color:var(--muted)}
+.success{
+  display:none;margin-top:12px;padding:12px 14px;border:1px solid #cbe7d6;background:#effaf3;border-radius:12px;color:#196c3d
+}
+.success.show{display:block}
+
+/* FOOTER */
+footer{padding:40px 0;color:var(--muted);text-align:center}
+
+
+/* ==== RSVP Enhancements (non-breaking) ==== */
+
+/* A11y helper for screen-reader only text */
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+
+/* Button loading spinner */
+.btn.is-loading{opacity:.85; pointer-events:none; position:relative;}
+.btn.is-loading::after{
+  content:""; display:inline-block; vertical-align:middle;
+  width:1em; height:1em; margin-left:.5em;
+  border:2px solid currentColor; border-right-color:transparent;
+  border-radius:50%; animation: spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(1turn)}}
+
+/* Soft fade + lift when enabling buttons */
+.btn-activated { animation: btnEnable .28s ease-out; }
+@keyframes btnEnable {
+  from { opacity: .4; transform: translateY(4px) scale(.98); filter: saturate(60%); }
+  to   { opacity: 1;  transform: translateY(0) scale(1);    filter: saturate(100%); }
+}
+/* When the button is disabled — show the red circle with slash */
+#checkBtn:disabled {
+  cursor: not-allowed;   /* red circle with slash */
+  opacity: 0.5;          /* make it look inactive */
+}
+#checkBtn {
+  cursor: pointer;       /* finger hand */
+}
+/* ================================
+   ✨ RSVP "Name Not Found" Styling
+================================= */
+/* ================================
+   ✨ Contact Host Button Styling
+================================= */
+.not-found {
+  background: #5bacc2;                 /* keep or adjust this to your preferred red shade */
+  border: 1px solid #407094;           /* darker red border */
+  padding: 14px 16px;
+  margin-top: 12px;
+  border-radius: 12px;
+  color: #ffffff;                     /* ✨ TEXT COLOR TO WHITE */
+  font-size: 0.95rem;
+  animation: fadeIn 0.4s ease;
+  text-align: center;
+}
+
+
+.contact-btn {
+  margin-top: 14px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(to right, #6997b0, #0091ff); /* orange gradient */
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(30, 131, 247, 0.3);
+  transition: background 0.3s ease, transform 0.15s ease;
+}
+
+.contact-btn:hover {
+  background: linear-gradient(to right, #1e7ff6, #00b7ff);
+  transform: translateY(-2px);
+}
+
+.contact-btn:active {
+  transform: translateY(0);
+}
+
+.contact-icon {
+  font-size: 1.2rem;
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}

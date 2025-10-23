@@ -1,0 +1,235 @@
+
+ <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    
+     .containers{
+    /* ---------- Color System: Blue/Gray ---------- */
+    :root{
+      --bg-grad-a:#f2f5f9;         /* light slate */
+      --bg-grad-b:#e9eef5;         /* mist */
+      --card:#ffffff;              /* card white */
+      --ink:#0b1220;               /* deep ink */
+      --muted222:#0e0e0e;             /* slate text */
+      --line:#e3e8ef;              /* soft line */
+      --navy:#0f2745;              /* primary navy */
+      --navy-600:#14355f;          /* hover navy */
+      --slate:#93a1b3;             /* subtle accent */
+      --sky:#cfe3ff;               /* focus glow */
+      --accent:#2d72d9;            /* bright blue accent */
+      --rose:#b76e79;              /* legacy accent (kept for headings mix) */
+      --success:#0f7b6c;
+      --danger:#9b1c31;
+      --shadow:0 14px 40px rgba(15,39,69,.12);
+      --inset:inset 0 0 0 1px rgba(20,53,95,.08);
+      --radius:22px;
+    }
+
+    /* ---------- Layout ---------- */
+    html,body{height:100%}
+    body{
+      font-family:'Playfair Display', serif;
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(45,114,217,.05), transparent 60%),
+        radial-gradient(900px 600px at 120% 20%, rgba(15,39,69,.06), transparent 55%),
+        linear-gradient(to bottom right, var(--bg-grad-a), var(--bg-grad-b));
+      display:flex;justify-content:center;align-items:center;
+      margin:0;padding:24px;color:var(--ink);
+    }
+
+.container {
+  background: var(--card);
+  padding: 44px 40px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow), var(--inset);
+  width: 100%;
+  max-width: 560px;
+  text-align: center;
+  position: relative;
+  animation: fadeIn .8s ease;
+
+  /* ✅ Soft, elegant border */
+  border: 1px solid #d0d7e1;      /* light gray */
+  outline: 1px solid #e8edf3;     /* subtle extra outline for depth */
+  outline-offset: -1px;
+  overflow: hidden;
+}
+
+
+    /* Decorative corner */
+    .container::after{
+      content:"";
+      position:absolute; inset:auto -40px -40px auto;
+      width:160px; height:160px; border-radius:32px;
+      background:radial-gradient(120px 120px at 80% 80%, rgba(45,114,217,.12), transparent 60%);
+      filter:blur(2px);
+      pointer-events:none;
+    }
+
+    /* ---------- Typography ---------- */
+    h2{
+    font-family: 'Playfair Display', serif;
+      font-size:44px; line-height:1.05;
+      color:var(--navy);
+      margin:0 0 6px;
+      letter-spacing:.2px;
+      text-shadow:0 1px 0 rgba(255,255,255,.8);
+      font-weight: normal;
+    }
+    p.subtitle{
+      font-size:16px; color:var(--muted222); margin:4px 0 24px;
+    }
+
+    /* ---------- Inputs ---------- */
+    input[type="text"], textarea{
+      width:92%;
+      padding:13px 16px;
+      margin:10px 0;
+      border-radius:12px;
+      border:1px solid var(--line);
+      font-size:16px;
+      background:#fbfdff;
+      transition:border-color .25s, box-shadow .25s, background .25s;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.6);
+    }
+    input[type="text"]::placeholder, textarea::placeholder{ color:#9aa6b2 }
+    input:focus, textarea:focus{
+      border-color:var(--accent);
+      outline:none;
+      box-shadow:0 0 0 4px rgba(45,114,217,.15);
+      background:#fff;
+    }
+    textarea{ resize:vertical; min-height:84px }
+
+    .readonly{ background:#f3f6fa; color:#46556b }
+
+    label{ margin-right:16px; font-size:16px; color:var(--ink) }
+    #status{ font-size:16px; font-weight:600; margin:16px 0; color:var(--navy) }
+
+    /* ---------- Buttons ---------- */
+    .btn{
+      padding:12px 20px; margin:10px 6px;
+      border:none; border-radius:999px;
+      background:linear-gradient(135deg, var(--navy), var(--navy-600));
+      color:#100f0f; font-size:16px; font-family:'Playfair Display', serif;
+      cursor:pointer; transition:transform .15s ease, box-shadow .25s ease, opacity .2s;
+      box-shadow:0 8px 20px rgba(15,39,69,.25);
+      display:inline-flex; align-items:center; gap:.5rem;
+    }
+    .btn:hover{ transform:translateY(-1px); box-shadow:0 12px 24px rgba(15,39,69,.28) }
+    .btn:active{ transform:translateY(0) scale(.99) }
+    .btn--outline{
+      background:linear-gradient(#fff,#fff);
+      color:var(--navy); border:1px solid var(--navy);
+      box-shadow:none;
+    }
+    .btn--muted222{
+      background:linear-gradient(135deg, #73839a, #5d6c81);
+    }
+
+    /* ---------- Cards / Sections ---------- */
+    #rsvpForm{
+      background:linear-gradient(180deg, #f7faff, #f1f5fb);
+      padding:22px; border-radius:16px; margin-top:20px;
+      box-shadow:inset 0 0 0 1px rgba(20,53,95,.06);
+      animation:fadeInUp .6s ease;
+      border:1px solid var(--line);
+    }
+    #guestDetails{
+      background:linear-gradient(180deg, #ffffff, #fafcff);
+      padding:22px; border-radius:16px; margin-top:16px;
+      border:1px solid var(--line);
+      box-shadow:inset 0 0 0 1px rgba(20,53,95,.04);
+    }
+    #guestInputs input{
+      width:92%; padding:11px 14px; margin:6px 0; border-radius:10px; border:1px solid var(--line);
+      background:#ffffff;
+    }
+    #guestInputs .hint{ font-size:12px; opacity:.8; color:#6b778a; margin-top:6px }
+
+    .hidden{ display:none }
+
+    @media(max-width:600px){
+      input, textarea, .btn{ width:100% }
+      .btn{ justify-content:center }
+    }
+
+    /* ---------- Animations ---------- */
+    @keyframes fadeIn{ from{opacity:0; transform:scale(.97)} to{opacity:1; transform:scale(1)} }
+    @keyframes fadeInUp{ from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:translateY(0)} }
+ /* ===== Loading Overlay ===== */
+.loading-overlay{
+  position: fixed; inset: 0;
+  background: rgba(15,23,42,.45);
+  backdrop-filter: blur(2px);
+  display: none;                 /* hidden by default */
+  align-items: center; justify-content: center;
+  z-index: 9999;
+}
+.loading-overlay.show{ display: flex; }
+
+.loading-box{
+  background:#fff;
+  padding:20px 24px;
+  border-radius:16px;
+  border:1px solid #e6ebf2;
+  box-shadow:0 14px 40px rgba(15,39,69,.22);
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+  min-width:260px;
+}
+.spinner{
+  width:28px; height:28px;
+  border:3px solid #cdd6e4;
+  border-top-color:#2d72d9;
+  border-radius:50%;
+  animation: spin .9s linear infinite;
+}
+.loading-text{ font-size:.95rem; color:#0f2745; font-weight:600; }
+@keyframes spin{ to{ transform: rotate(1turn); } }
+
+ }
+ </style>
+
+  <div class="container">
+    <h2>Wedding RSVP</h2>
+    <p class="subtitle">We can’t wait to celebrate with you! ✨</p>
+
+    <input type="text" id="guestName" placeholder="Enter your full name" />
+    <button id="checkBtn" class="btn" onclick="checkName()" disabled>Continue</button>
+
+    <p id="status"></p>
+
+    <p id="editPrompt" class="hidden"></p>
+    <div id="editButtons" class="hidden">
+      <button class="btn" onclick="startEditing()">Yes, edit RSVP</button>
+      <button class="btn btn--outline" onclick="cancelEditing()">No, keep it</button>
+    </div>
+
+    <div id="rsvpForm" class="hidden">
+      <p style="margin:0 0 10px;color:#334155">Will you attend?</p>
+      <label><input type="radio" name="attendance" value="Yes" checked /> Yes 💙</label>
+      <label><input type="radio" name="attendance" value="No" /> No 💭</label><br />
+      <div id="updateSection" class="hidden" style="margin-top:10px">
+        <button id="submitBtn" class="btn btn--muted222"  onclick="submitRSVP()">Update RSVP</button>
+      </div>
+    </div>
+
+    <div id="guestDetails" class="hidden">
+      <input type="hidden" id="guestCount" min="0" />
+      <div id="guestInputs"></div>
+      <textarea id="guestNames" class="hidden"></textarea><br />
+      <div id="submitSection" class="hidden">
+        <button class="btn" onclick="submitRSVP()">Submit RSVP</button>
+      </div>
+    </div>
+
+    <!-- Full-screen loading overlay -->
+<div id="loadingOverlay" class="loading-overlay" aria-live="polite" aria-busy="true">
+  <div class="loading-box">
+    <div class="spinner" aria-hidden="true"></div>
+    <div id="loadingText" class="loading-text">Submitting your RSVP…</div>
+  </div>
+</div>
+
+  </div>
+
+  
