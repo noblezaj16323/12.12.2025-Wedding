@@ -236,10 +236,11 @@ async function checkName() {
   setBusy(_btn,true,'Checking…'); 
   announce('Checking name…');
 
-  showLoadingOverlay(true, 'Checking your name…'); // ✅ added
+  showLoadingOverlay(true, 'Please wait…'); // ✅ added
 
   const name = document.getElementById("guestName").value.trim();
   if (!name) {
+    document.getElementById("checkBtn").style.display = "none";
     showLoadingOverlay(false);
     setBusy(_btn,false);
     return alert("Please enter your name");
@@ -255,8 +256,8 @@ async function checkName() {
       const status = document.getElementById("status");
       status.innerHTML = `
         <div class="not-found">
-          ❌ Sorry, we couldn’t find your name on our guest list.<br>
-          If you believe this is a mistake, please click below to reach us.
+          Sorry, we couldn’t locate your name on our guest list.<br>
+          If you believe this is an oversight, please contact us using the button below.
           <br>
           <button class="contact-btn" onclick="window.open('https://web.facebook.com/psychewhiz/', '_blank')">
             <svg xmlns="http://www.w3.org/2000/svg" class="contact-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -283,6 +284,7 @@ async function checkName() {
     if (result.alreadyRegistered === "Yes") {
       const remainingSeats = planned - Number(result.registeredGuests || 0);
       if (remainingSeats <= 0) {
+        document.getElementById("checkBtn").style.display = "none";
         editingEnabled = false;
         document.getElementById("status").innerText = "✅ Completed. Already Registered. You want to edit?";
         renderGuestInputs(planned, prefillList, result.name);
@@ -294,6 +296,7 @@ async function checkName() {
         document.getElementById("editButtons").classList.remove("hidden");
       } else {
         editingEnabled = false;
+        document.getElementById("checkBtn").style.display = "none";
         document.getElementById("status").innerText =
           `⚠️ You already submitted, but there are ${remainingSeats} seat(s) left. Update?`;
         renderGuestInputs(planned, prefillList, result.name);
@@ -343,6 +346,8 @@ function cancelEditing() {
   hideFormAndButtons();
   setFormEditable(false);
   editingEnabled = false;
+  document.getElementById("checkBtn").style.display = "inline-block";
+  document.getElementById("guestName").value = "";
   document.getElementById("status").innerText = "✅ RSVP remains unchanged.";
 }
 
@@ -359,6 +364,7 @@ function hideFormAndButtons() {
 // Submit RSVP
 // ============================
 async function submitRSVP() {
+  document.getElementById("checkBtn").style.display = "inline-block";
   const _sbtn=document.getElementById('submitBtn'); 
   setBusy(_sbtn,true,'Submitting…'); 
   announce('Submitting your RSVP…');
