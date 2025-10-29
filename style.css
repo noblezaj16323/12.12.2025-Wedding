@@ -53,7 +53,7 @@ a{color:var(--navy);text-decoration:none}
 
 }
 .h3{font-weight:600;margin:.25rem 0 .5rem}
-.lede{ font-family: 'La Lexus Serif', serif;font-size:clamp(1rem,1.25vw,1.1rem);color:var(--muted)}
+.lede{ font-family: 'La Lexus Serif', serif;;font-size:clamp(1rem,1.25vw,1.1rem);color:var(--muted)}
 .grid{display:grid;gap:20px}
 .grid-2{grid-template-columns:repeat(2,1fr)}
 .grid-3{grid-template-columns:repeat(3,1fr)}

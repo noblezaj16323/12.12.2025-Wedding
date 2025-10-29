@@ -147,18 +147,33 @@
   font-weight: 500;
 }
 
-/* Radio button options */
+/* Center the radio buttons and text neatly */
 .rsvp-options {
-  text-align: center;
+  display: flex;
+  justify-content: center;   /* center horizontally */
+  align-items: center;       /* align vertically */
+  gap: 20px;                 /* even spacing between Yes/No */
   margin-bottom: 15px;
 }
 
+/* Align each label’s content (radio + emoji text) */
 .rsvp-options label {
-  margin: 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;                  /* space between the circle and text */
   cursor: pointer;
   color: #1e293b;
   font-size: 15px;
 }
+
+/* Optional: tweak radio size and color to match theme */
+.rsvp-options input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #1e4fa3;     /* your theme blue */
+  cursor: pointer;
+}
+
 
 /* Update Section (button container) */
 #updateSection {
@@ -453,12 +468,10 @@
 <div id="rsvpContainer">
   <div id="rsvpForm" class="hidden">
     <p class="rsvp-question">Will you attend?</p>
-
     <div class="rsvp-options">
       <label><input type="radio" name="attendance" value="Yes" checked /> Yes 💙</label>
       <label><input type="radio" name="attendance" value="No" /> No 💭</label>
     </div>
-
     <div id="updateSection" class="hidden">
       <button id="submitBtn" class="btn btn--muted222" onclick="submitRSVP()">Submit RSVP</button>
     </div>
