@@ -29,11 +29,11 @@
       <nav class="links" onclick="if(event.target.tagName==='A'){this.classList.remove('show')}">
         <a href="#home">Home</a>
         <a href="#schedule">Schedule</a>
+        <a href="#ourstory">Our Story</a>        
         <a href="#gallery">Gallery</a>
         <a href="#entourage">Entourage</a>
         <a href="#dress">Dress Code</a>
         <a href="#faqs">FAQs</a>
-        <a href="#details">Details</a>
         <a href="#rsvp" class="pill">RSVP</a>
       </nav>
     </div>
@@ -43,7 +43,6 @@
 <section id="home" class="hero with-bg">
   <div class="container hero-wrap slide-down">
     <div>
-      <div class="pill">WE ARE GETTING MARRIED</div>
       <h1 class="h-giant names">
         <span>Jerwin</span> <span class="amp">&amp;</span> <span>Dawn</span>
       </h1>
@@ -55,38 +54,55 @@
   </div>
 </section>
 
+<!-- STORY -->
+<section class="section" id="ourstory">
+  <div class="story-container">
+    <div class="story-text">
+      <h2 class="h1 center slide-down">Our Story</h2>
+      <p>
+        Our love story is not the usual kind. It all began in 2015, when we were just classmates
+        sharing the same room, the same lessons, and the same laughter. What started as 
+        simple friendship slowly grew into something deeper—something neither of us expected. 
+        Through the years, we discovered that what we had was more than just chance 
+        encounters in school, but the beginning of a journey meant to last a lifetime.
+      </p>
+    </div>
+    <div class="story-image reveal-left">
+      <img src="assets/images/ourstoryimage.jpg" alt="Couple strolling through vines" loading="lazy">
+    </div>
+  </div>
+</section>
+
+    </section>
 
 <!-- ========== SCHEDULE ========== -->
 <section id="schedule" class="section">
   <div class="container">
     <h2 class="h1 center slide-down">Schedule &amp; Venues</h2>
-    <p class="center subtle">Everything you need to know for the big day.</p>
+   
 
     <div class="schedule-grid">
       <!-- Ceremony -->
       <div class="venue-card">
-        <div class="venue-icon">
-          <img src="assets/images/churchicon.png" alt="Church Icon">
+        <div class="venue-image">
+          <img src="assets/images/church.jpg" alt="Church photo">
         </div>
         <div class="venue-details">
           <h3 class="venue-title">Ceremony</h3>
           <p class="venue-time">December 12, 2025 • 2:00 PM</p>
-          <p class="venue-name">Shrine of the Divine Mercy - Monte de Piedad </p>
+          <p class="venue-name">Shrine of the Divine Mercy - Monte de Piedad</p>
           <p class="venue-addr">Dominican Hills Ave, Abucay, Bataan</p>
           <div class="venue-buttons">
             <a href="https://www.google.com/maps/place/Monte+De+Piedad+Divine+Mercy+Shrine/@14.7192064,120.4810913,17z/data=!4m6!3m5!1s0x33966b371090b335:0x55f32a533ebaaee2!8m2!3d14.7192012!4d120.4836662!16s%2Fg%2F11l71zrnbt" class="btn alt" target="_blank">📍 View Map</a>
             <a href="https://www.google.com/maps/dir/?api=1&destination=Monte+De+Piedad+Divine+Mercy+Shrine" class="btn alt" target="_blank">🧭 Directions</a>
           </div>
         </div>
-    <div class="venue-hover-image">
-      <img src="assets/images/church.jpg" alt="Church photo">
-    </div>
-        
       </div>
+
       <!-- Reception -->
       <div class="venue-card">
-        <div class="venue-icon">
-          <img src="assets/images/iconreception.jpg" alt="Restaurant Icon">
+        <div class="venue-image">
+          <img src="assets/images/reception_resized.jpg" alt="Reception photo">
         </div>
         <div class="venue-details">
           <h3 class="venue-title">Reception</h3>
@@ -95,17 +111,13 @@
           <p class="venue-addr">Pilar, Bataan</p>
           <div class="venue-buttons">
             <a href="https://www.google.com/maps/place/Nico's+Mountain+Hideaway/@14.6168159,120.4873104,17z/data=!3m1!4b1!4m6!3m5!1s0x3396400081fcf6d9:0x9d507e90b5cba3f6!8m2!3d14.6168107!4d120.4898853!16s%2Fg%2F1tgrzgbm?entry=ttu&g_ep=EgoyMDI1MTAxNC4wIKXMDSoASAFQAw%3D%3D" class="btn alt" target="_blank">📍 View Map</a>
-            <a href="https://www.google.com/maps/dir//Nico's+Mountain+Hideaway,+Beside+Dunsulan+Falls,+Pilar,+2101+Bataan/@14.621565,120.4848615,15.44z/data=!4m16!1m7!3m6!1s0x3396400081fcf6d9:0x9d507e90b5cba3f6!2sNico's+Mountain+Hideaway!8m2!3d14.6168107!4d120.4898853!16s%2Fg%2F1tgrzgbm!4m7!1m0!1m5!1m1!1s0x3396400081fcf6d9:0x9d507e90b5cba3f6!2m2!1d120.4898853!2d14.6168107?hl=en&entry=ttu&g_ep=EgoyMDI1MTAxNC4wIKXMDSoASAFQAw%3D%3D" class="btn alt" target="_blank">🧭 Directions</a>
+            <a href="https://www.google.com/maps/dir//Nico's+Mountain+Hideaway,+Beside+Dunsulan+Falls,+Pilar,+2101+Bataan" class="btn alt" target="_blank">🧭 Directions</a>
           </div>
-           </div>
-              <div class="venue-hover-image">
-      <img src="assets/images/reception_resized.jpg" alt="Reception photo">
-    </div>
-
+        </div>
       </div>
-
+    </div>
+  </div>
 </section>
-
 
   <!-- ========== GALLERY ========== -->
   <section id="gallery" class="section alt">
@@ -113,15 +125,24 @@
       <h2 class="h1 center slide-down">Captured Moments</h2>
 
       <div class="gallery" style="margin-top:18px">
-        <img src="assets/images/sample1.jpg" alt="">
-        <img src="assets/images/sample2.jpg" alt="">
-        <img src="assets/images/sample3.jpg" alt="">
-        <img src="assets/images/sample4.jpg" alt="">
-        <img src="assets/images/sample1.jpg" alt="">
-        <img src="assets/images/sample2.jpg" alt="">
-        <img src="assets/images/sample3.jpg" alt="">
-        <img src="assets/images/sample4.jpg" alt="">
-        
+        <img src="assets/images/prenup/Cafe1.jpg" alt="">
+        <img src="assets/images/prenup/Cafe2.jpg" alt="">
+        <img src="assets/images/prenup/Cafe3.jpg" alt="">
+        <img src="assets/images/prenup/Cafe5.jpg" alt="">
+        <img src="assets/images/prenup/Cafe6.jpg" alt="">
+        <img src="assets/images/prenup/IndoorWhite1.jpg" alt="">
+        <img src="assets/images/prenup/IndoorWhite2.jpg" alt="">
+        <img src="assets/images/prenup/IndoorWhite3.jpg" alt="">
+        <img src="assets/images/prenup/Tent1.jpg" alt="">
+        <img src="assets/images/prenup/Tent2.jpg" alt="">
+        <img src="assets/images/prenup/Tent3.jpg" alt="">
+        <img src="assets/images/prenup/Tent4.jpg" alt="">
+        <img src="assets/images/prenup/Tent5.jpg" alt="">
+        <img src="assets/images/prenup/Tent6.jpg" alt="">
+        <img src="assets/images/prenup/Tent6.jpg" alt="">
+        <img src="assets/images/prenup/Rocks1.jpg" alt="">
+        <img src="assets/images/prenup/Rocks2.jpg" alt="">
+        <img src="assets/images/prenup/Sunset1.jpg" alt="">
       </div>
     </div>
   </section>
@@ -371,7 +392,6 @@
     </details>
   </div>
 </section>
-
 
   <!-- ========== RSVP ========== -->
   <section id="rsvp" class="section">

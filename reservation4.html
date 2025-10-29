@@ -53,6 +53,9 @@
   outline-offset: -1px;
   overflow: hidden;
 }
+#status {
+  text-align: center;
+}
 
 
     /* Decorative corner */
@@ -100,7 +103,7 @@
     }
     textarea{ resize:vertical; min-height:84px }
 
-    .readonly{ background:#f3f6fa; color:#46556b }
+    .readonly{ pointer-events: auto;background:#f3f6fa; color:#46556b }
 
     label{ margin-right:16px; font-size:16px; color:var(--ink) }
     #status{ font-size:16px; font-weight:600; margin:16px 0; color:var(--navy) }
@@ -127,24 +130,134 @@
     }
 
     /* ---------- Cards / Sections ---------- */
-    #rsvpForm{
-      background:linear-gradient(180deg, #f7faff, #f1f5fb);
-      padding:22px; border-radius:16px; margin-top:20px;
-      box-shadow:inset 0 0 0 1px rgba(20,53,95,.06);
-      animation:fadeInUp .6s ease;
-      border:1px solid var(--line);
-    }
-    #guestDetails{
-      background:linear-gradient(180deg, #ffffff, #fafcff);
-      padding:22px; border-radius:16px; margin-top:16px;
-      border:1px solid var(--line);
-      box-shadow:inset 0 0 0 1px rgba(20,53,95,.04);
-    }
-    #guestInputs input{
-      width:92%; padding:11px 14px; margin:6px 0; border-radius:10px; border:1px solid var(--line);
-      background:#ffffff;
-    }
-    #guestInputs .hint{ font-size:12px; opacity:.8; color:#6b778a; margin-top:6px }
+/* ===== Center RSVP Section ===== */
+/* RSVP container styling */
+#rsvpContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Question text */
+.rsvp-question {
+  margin: 0 0 10px;
+  color: #334155;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Radio button options */
+.rsvp-options {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.rsvp-options label {
+  margin: 0 8px;
+  cursor: pointer;
+  color: #1e293b;
+  font-size: 15px;
+}
+
+/* Update Section (button container) */
+#updateSection {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Button styling */
+#submitBtn {
+  background: white;
+  border: 1px solid #d8e2ec;
+  border-radius: 25px;
+  padding: 10px 25px;
+  font-weight: 600;
+  color: #0f2745;
+  box-shadow: 0 5px 15px rgba(15, 39, 69, 0.08);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+#submitBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 39, 69, 0.15);
+}
+
+
+/* Keep RSVP form neatly sized */
+#rsvpForm {
+  max-width: 600px;         /* Prevent it from stretching too wide */
+  width: 100%;
+  background: linear-gradient(180deg, #f7faff, #f1f5fb);
+  padding: 22px;
+  border-radius: 16px;
+  margin-top: 20px;
+  border: 1px solid var(--line);
+  box-shadow: inset 0 0 0 1px rgba(20,53,95,.06);
+  animation: fadeInUp 0.6s ease;
+}
+
+/* Center guest details section too */
+/* === Center Guest Name Section and Button === */
+/* Perfectly center guest input block */
+#guestDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;           /* center horizontally */
+  justify-content: center;
+  max-width: 600px;
+  margin: 20px auto;            /* center container itself */
+  text-align: center;           /* align text for good measure */
+}
+
+/* Align guest input fields nicely */
+#guestInputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;                    /* clean spacing between inputs */
+}
+
+#guestInputs input {
+  text-align: center;
+  width: 80%;
+  max-width: 350px;             /* limit width for clean look */
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+/* Center the Submit RSVP button */
+#submitSection {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+#submitSection .btn {
+  padding: 12px 28px;
+  border-radius: 999px;
+  background: linear-gradient(to right, #0f2745, #14355f);
+  color: #fff;
+  font-size: 16px;
+  box-shadow: 0 6px 20px rgba(15, 39, 69, 0.15);
+  transition: all 0.25s ease;
+}
+
+#submitSection .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(15, 39, 69, 0.22);
+}
+
+#rsvpForm, #guestDetails {
+  max-width: 560px;  /* match both */
+}
 
     .hidden{ display:none }
 
@@ -187,14 +300,147 @@
 @keyframes spin{ to{ transform: rotate(1turn); } }
 
  }
+ .rsvp-input-section {
+  display: flex;
+  flex-direction: column; /* stack input + button */
+  align-items: center; /* horizontal centering */
+  justify-content: center; /* optional vertical centering */
+  margin-top: 20px;
+}
+
+.rsvp-input-section input {
+  width: 80%;
+  max-width: 350px;
+  padding: 12px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 16px;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.rsvp-input-section input:focus {
+  border-color: #2d72d9;
+  box-shadow: 0 0 0 3px rgba(45, 114, 217, 0.15);
+}
+
+.rsvp-input-section .btn {
+  margin-top: 16px;
+  background: linear-gradient(to right, #0f2745, #14355f);
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 28px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(15, 39, 69, 0.15);
+  transition: all 0.25s ease;
+}
+
+.rsvp-input-section .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(15, 39, 69, 0.22);
+}
+#updateSection {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* vertical centering */
+  height: 100px; /* or any height you prefer */
+}
+
+#submitBtn {
+  display: inline-block;
+  margin: 0 auto;
+}
+.rsvp-success {
+  background: linear-gradient(180deg, #f8fbff, #eef3f8);
+  border: 1px solid #d8e2ec;
+  box-shadow: 0 10px 30px rgba(15, 39, 69, 0.08);
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  margin-top: 30px;
+  animation: fadeUp 0.6s ease-out;
+}
+
+.rsvp-success h2 {
+  color: #1e293b;
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.rsvp-success p {
+  color: #475569;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  margin: 0 0 15px;
+}
+
+.btn.alt {
+  background: linear-gradient(135deg, #dbe8ff, #b9cfe9);
+  color: #1e293b;
+  font-weight: 500;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.25s ease;
+}
+
+.btn.alt:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(30, 41, 59, 0.15);
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.rsvp-success-box {
+  background: linear-gradient(180deg, #f8fbff, #e3ecf8);
+  border: 1px solid #c5d6e6;
+  box-shadow: 0 4px 20px rgba(15, 39, 69, 0.08);
+  border-radius: 16px;
+  padding: 30px 20px;
+  text-align: center;
+  color: #1e293b;
+  animation: fadeInUp 0.6s ease;
+}
+
+.rsvp-success-box h2 {
+  margin-bottom: 10px;
+  color: #0f172a;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.rsvp-success-box p {
+  font-size: 1rem;
+  color: #334155;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
  </style>
+ 
+<div id="rsvpHeader" class="container">
+  <h2>Wedding RSVP</h2>
+  <p class="subtitle">We can’t wait to celebrate with you! ✨</p>
+</div>
 
-  <div class="container">
-    <h2>Wedding RSVP</h2>
-    <p class="subtitle">We can’t wait to celebrate with you! ✨</p>
 
-    <input type="text" id="guestName" placeholder="Enter your full name" />
-    <button id="checkBtn" class="btn" onclick="checkName()" disabled>Continue</button>
+<div class="rsvp-input-section">
+  <input type="text" id="guestName" placeholder="Enter your full name" />
+  <button id="checkBtn" class="btn" onclick="checkName()" disabled>Continue</button>
+</div>
+
 
     <p id="status"></p>
 
@@ -204,14 +450,52 @@
       <button class="btn btn--outline" onclick="cancelEditing()">No, keep it</button>
     </div>
 
-    <div id="rsvpForm" class="hidden">
-      <p style="margin:0 0 10px;color:#334155">Will you attend?</p>
+<div id="rsvpContainer">
+  <div id="rsvpForm" class="hidden">
+    <p class="rsvp-question">Will you attend?</p>
+
+    <div class="rsvp-options">
       <label><input type="radio" name="attendance" value="Yes" checked /> Yes 💙</label>
-      <label><input type="radio" name="attendance" value="No" /> No 💭</label><br />
-      <div id="updateSection" class="hidden" style="margin-top:10px">
-        <button id="submitBtn" class="btn btn--muted222"  onclick="submitRSVP()">Update RSVP</button>
-      </div>
+      <label><input type="radio" name="attendance" value="No" /> No 💭</label>
     </div>
+
+    <div id="updateSection" class="hidden">
+      <button id="submitBtn" class="btn btn--muted222" onclick="submitRSVP()">Submit RSVP</button>
+    </div>
+    <div id="rsvpSuccessMessage" class="rsvp-success hidden">
+  <h2>💙 RSVP Submitted Successfully!</h2>
+  <p>Thank you for confirming your attendance — we can’t wait to celebrate this day with you!</p>
+  <button onclick="location.href='#home'" class="btn alt">Back to Home</button>
+</div>
+
+  </div>
+</div>
+
+
+    
+<!-- RSVP Confirmation Section -->
+<div id="rsvpSubmittedSection" class="hidden rsvp-confirmation">
+  <div class="confirmation-icon" id="confirmationIcon">✅</div>
+  <h2 class="confirmation-title" id="confirmationTitle">RSVP Already232 Submitted</h2>
+  <p class="confirmation-text">
+    Hello <span id="guestNameDisplay"></span>!
+  </p>
+  <p class="confirmation-subtext" id="confirmationMessage">
+    We already have your RSVP confirmation. We can't wait to celebrate with you!
+  </p>
+
+  <div class="confirmation-box">
+    <p class="confirmation-label">Your RSVP Response:</p>
+    <div id="confirmationStatus" class="confirmation-status accepted">✔ Accepted</div>
+  </div>
+  <!-- ✅ Additional Guests -->
+  <div id="additionalGuestsContainer" class="hidden">
+    <p class="confirmation-label">Additional Guests:</p>
+    <ul id="additionalGuestsList" class="confirmation-guests-list"></ul>
+  </div>
+  <button id="searchAnotherGuestBtn" class="confirmation-btn" onclick="smoothReload()">Search Another Guest</button>
+
+</div>
 
     <div id="guestDetails" class="hidden">
       <input type="hidden" id="guestCount" min="0" />

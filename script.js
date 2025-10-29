@@ -1,4 +1,63 @@
 // ============================
+// Inject minimal fade CSS (for smooth reload transitions)
+// ============================
+(function injectFadeStyles(){
+  const css = `
+    .fade-out{ opacity:0; transition:opacity .4s ease; }
+    .fade-in{ opacity:1; transition:opacity .4s ease; }
+    .hidden { display: none !important; } /* safety, if not in your CSS */
+  `;
+  const style = document.createElement('style');
+  style.textContent = css;
+  document.head.appendChild(style);
+})();
+
+function setNavOffset(){
+  const h = document.querySelector('header.site-nav');
+  if (h) document.documentElement.style.setProperty('--nav-h', h.offsetHeight + 'px');
+}
+window.addEventListener('load', setNavOffset);
+window.addEventListener('resize', setNavOffset);
+// Smooth reload: fade, scroll to top/home, then reload
+function smoothReload(target) {
+  const el = target || document.body;
+
+  // scroll to the top or your specific section
+  window.location.hash = '#home'; // 👈 ensures it opens at top/home after reload
+
+  el.classList.add('fade-in');
+  requestAnimationFrame(() => {
+    el.classList.remove('fade-in');
+    el.classList.add('fade-out');
+  });
+
+  el.addEventListener('transitionend', () => {
+    window.scrollTo({ top: 0, behavior: 'auto' }); // scrolls to top before reload
+    location.reload();
+  }, { once:true });
+}
+
+
+// Bind fade+reload to any existing "Search Another Guest" button
+function hookSearchReloadButtons(scope = document){
+  scope.querySelectorAll('#searchAnotherGuestBtn, [data-action="search-again"]')
+    .forEach(btn => {
+      if (!btn.dataset.boundReload) {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          smoothReload();
+        });
+        btn.dataset.boundReload = '1';
+      }
+    });
+}
+
+// Optional: nice fade-in on page load
+window.addEventListener('DOMContentLoaded', () => {
+  document.body.classList.add('fade-in');
+});
+
+// ============================
 // IntersectionObserver for LEFT reveal animations
 // ============================
 const setupReveals = () => {
@@ -20,68 +79,61 @@ const setupReveals = () => {
 
 
 // Falling leaves animation
-    const leafImage = 'leaf.png'; // path to your image
-    const leafCount = window.innerWidth < 768 ? 15 : 25;
-    const leaves = [];
-    const leafContainer = document.getElementById('leaf-layer') || document.body;
+const leafImage = 'leaf.png'; // path to your image
+const leafCount = window.innerWidth < 768 ? 15 : 25;
+const leaves = [];
+const leafContainer = document.getElementById('leaf-layer') || document.body;
 
-    // Create leaves
-    for (let i = 0; i < leafCount; i++) {
-      const leaf = document.createElement("img");
-      leaf.src = leafImage;
-      leaf.className = "leaf";
-      leaf.style.left = Math.random() * window.innerWidth + "px";
-      leaf.style.top = Math.random() * window.innerHeight + "px";
-      const hero = document.querySelector('.hero.with-bg');
-      leafContainer.appendChild(leaf);
+// Create leaves
+for (let i = 0; i < leafCount; i++) {
+  const leaf = document.createElement("img");
+  leaf.src = leafImage;
+  leaf.className = "leaf";
+  leaf.style.left = Math.random() * window.innerWidth + "px";
+  leaf.style.top = Math.random() * window.innerHeight + "px";
+  const hero = document.querySelector('.hero.with-bg');
+  leafContainer.appendChild(leaf);
 
+  leaves.push({
+    el: leaf,
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    speed: 0.5 + Math.random() * 1.5,
+    sway: Math.random() * 2 + 1,
+    phase: Math.random() * Math.PI * 2,
+    angle: Math.random() * 360,
+    rotationSpeed: Math.random() * 2,
+  });
+}
 
+function animate() {
+  const height = window.innerHeight;
+  const width = window.innerWidth;
 
-      leaves.push({
-        el: leaf,
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        speed: 0.5 + Math.random() * 1.5,
-        sway: Math.random() * 2 + 1,
-        phase: Math.random() * Math.PI * 2, // random phase for left/right movement
-        angle: Math.random() * 360,
-        rotationSpeed: Math.random() * 2,
-      });
+  leaves.forEach((leaf) => {
+    leaf.y += leaf.speed;
+    leaf.x += Math.sin((leaf.y / 50) * leaf.sway + leaf.phase) * 1.5;
+    leaf.angle += leaf.rotationSpeed;
+
+    if (leaf.y > height + 50) {
+      leaf.y = -50;
+      leaf.x = Math.random() * width;
     }
+    if (leaf.x < -50) leaf.x = width + 50;
+    if (leaf.x > width + 50) leaf.x = -50;
 
-    function animate() {
-      const height = window.innerHeight;
-      const width = window.innerWidth;
+    leaf.el.style.transform = `translate(${leaf.x}px, ${leaf.y}px) rotate(${leaf.angle}deg)`;
+  });
 
-      leaves.forEach((leaf) => {
-        leaf.y += leaf.speed;
-        leaf.x += Math.sin((leaf.y / 50) * leaf.sway + leaf.phase) * 1.5;
-        leaf.angle += leaf.rotationSpeed;
+  requestAnimationFrame(animate);
+}
+animate();
 
-        // Reset leaf when it falls below the screen
-        if (leaf.y > height + 50) {
-          leaf.y = -50;
-          leaf.x = Math.random() * width;
-        }
-
-        // Keep leaves within horizontal bounds
-        if (leaf.x < -50) leaf.x = width + 50;
-        if (leaf.x > width + 50) leaf.x = -50;
-
-        leaf.el.style.transform = `translate(${leaf.x}px, ${leaf.y}px) rotate(${leaf.angle}deg)`;
-      });
-
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-
-    // Handle window resize
-    window.addEventListener("resize", () => {
-      leaves.forEach((leaf) => {
-        leaf.x = Math.random() * window.innerWidth;
-      });
-    });
+window.addEventListener("resize", () => {
+  leaves.forEach((leaf) => {
+    leaf.x = Math.random() * window.innerWidth;
+  });
+});
 
 const setupSlideDown = () => {
   const slideElements = document.querySelectorAll('.slide-down');
@@ -128,6 +180,7 @@ window.addEventListener('DOMContentLoaded', () => {
   setupReveals();
   setupSlideDown();
   setupSmoothScroll();
+  hookSearchReloadButtons();  // attach on load too
 });
 
 // ============================
@@ -144,7 +197,7 @@ View("reservation4.html");
 // RSVP LOGIC
 // ============================
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzg22K276Q_YXBEowV2lHHF7cwIEom5VydMEEld5fhMTfC4E4ycyOkJRm1oazeh_SV1/exec";
-const INCLUDE_MAIN_IN_SUBMIT = false;
+const INCLUDE_MAIN_IN_SUBMIT = true;
 const COUNT_INCLUDES_MAIN   = true;
 
 let guestData = null;
@@ -160,38 +213,55 @@ function showLoadingOverlay(show = true, message) {
   if (message && txt) txt.textContent = message;
   el.classList.toggle('show', !!show);
 }
-
 function renderGuestInputs(count, prefill = [], mainName = "") {
   const box = document.getElementById("guestInputs");
   box.innerHTML = "";
+
   const n = Math.max(0, Number(count || 0));
   if (n === 0) return;
 
+  // ----- Guest 1 (You) — editable -----
   const firstWrap = document.createElement("div");
   const first = document.createElement("input");
   first.type = "text";
   first.id = "guest_1";
+  first.name = "guest_names[]";
   first.placeholder = "Guest 1 (You)";
   first.value = mainName || "";
-  first.readOnly = true;
-  first.classList.add("readonly");
+
+  // hard-unlock in case something set it elsewhere
+  first.readOnly = false;
+  first.disabled = false;
+  first.removeAttribute("readonly");
+  first.removeAttribute("disabled");
+  first.classList.remove("readonly");          // ensure no CSS is blocking typing
+  first.autocomplete = "off";
+
   firstWrap.appendChild(first);
   box.appendChild(firstWrap);
 
+  // ----- Guests 2..n (IMPORTANT: start at 2) -----
   for (let i = 2; i <= n; i++) {
     const wrap = document.createElement("div");
     const input = document.createElement("input");
     input.type = "text";
     input.id = `guest_${i}`;
+    input.name = "guest_names[]";
     input.placeholder = `Guest ${i} full name`;
-    input.value = prefill[i - 2] || "";
+
+    // prefill[0] -> guest_2, prefill[1] -> guest_3, etc.
+    const prefillIndex = i - 2;
+    input.value = prefill[prefillIndex] || "";
+
+    input.readOnly = false;
+    input.disabled = false;
+    input.removeAttribute("readonly");
+    input.removeAttribute("disabled");
+    input.autocomplete = "off";
+
     wrap.appendChild(input);
     box.appendChild(wrap);
   }
-
-  const hint = document.createElement("div");
-  hint.className = "hint";
-  box.appendChild(hint);
 }
 
 function getGuestNamesFromInputs() {
@@ -206,7 +276,7 @@ function setFormEditable(enabled) {
   const radios = Array.from(document.querySelectorAll('input[name="attendance"]'));
 
   inputs.forEach((el, idx) => {
-    if (idx === 0) { el.readOnly = true; el.disabled = !enabled; el.classList.add("readonly"); }
+    if (idx === 0) { el.readOnly = false; el.disabled = !enabled; el.classList.add("readonly"); }
     else { el.readOnly = !enabled; el.disabled = !enabled; el.classList.toggle("readonly", !enabled); }
   });
 
@@ -232,23 +302,27 @@ function updateVisibilityByAttendance() {
 // Check Name
 // ============================
 async function checkName() {
-  const _btn=document.getElementById('checkBtn'); 
-  setBusy(_btn,true,'Checking…'); 
+  const _btn = document.getElementById('checkBtn');
+  setBusy(_btn, true, 'Checking…');
   announce('Checking name…');
 
-  showLoadingOverlay(true, 'Please wait…'); // ✅ added
+  showLoadingOverlay(true, 'Please wait…');
 
   const name = document.getElementById("guestName").value.trim();
   if (!name) {
-    document.getElementById("checkBtn").style.display = "none";
+    _btn.style.display = "none";
     showLoadingOverlay(false);
-    setBusy(_btn,false);
+    setBusy(_btn, false);
     return alert("Please enter your name");
   }
 
   try {
     const controller = new AbortController();
-    const response = await withTimeout(fetch(WEB_APP_URL + "?name=" + encodeURIComponent(name), { signal: controller.signal }), 12000, controller);
+    const response = await withTimeout(
+      fetch(WEB_APP_URL + "?name=" + encodeURIComponent(name), { signal: controller.signal }),
+      12000,
+      controller
+    );
     if (!response.ok) throw new Error("Network error " + response.status);
     const result = await response.json();
 
@@ -260,21 +334,84 @@ async function checkName() {
           If you believe this is an oversight, please contact us using the button below.
           <br>
           <button class="contact-btn" onclick="window.open('https://web.facebook.com/psychewhiz/', '_blank')">
-            <svg xmlns="http://www.w3.org/2000/svg" class="contact-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
             Contact Host
           </button>
+          <button class="confirmation-btn" data-action="search-again">Search Another Guest</button>
         </div>`;
       hideFormAndButtons();
+      hookSearchReloadButtons(status); // bind inside the newly injected HTML
       return;
     }
 
+    // ✅ If attendance already set, show confirmation and bind existing search button
+    const attendance = (result.attendance || "").toLowerCase();
+    if (attendance === "yes" || attendance === "no") {
+      editingEnabled = false;
+      hideFormAndButtons();
+
+      // hide the textbox + continue button
+      ["guestName","checkBtn"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.add("hidden");
+      });
+document.getElementById("rsvpHeader").style.display = "none";
+
+
+      const submittedSection = document.getElementById("rsvpSubmittedSection");
+      const guestNameDisplay = document.getElementById("guestNameDisplay");
+      const confirmationStatus = document.getElementById("confirmationStatus");
+      const confirmationIcon = document.getElementById("confirmationIcon");
+      const confirmationTitle = document.getElementById("confirmationTitle");
+      const confirmationMessage = document.getElementById("confirmationMessage");
+      const additionalGuestsContainer = document.getElementById("additionalGuestsContainer");
+      const additionalGuestsList = document.getElementById("additionalGuestsList");
+
+      if (!submittedSection || !guestNameDisplay || !confirmationStatus || !confirmationIcon || !confirmationTitle || !confirmationMessage) {
+        console.warn("⚠️ Some confirmation section elements are missing in the HTML.");
+        return;
+      }
+
+      guestNameDisplay.innerText = result.name || "Guest";
+
+      if (attendance === "yes") {
+        confirmationStatus.textContent = "✔ Accepted";
+        confirmationStatus.className = "confirmation-status accepted";
+        confirmationIcon.textContent = "✅";
+        confirmationTitle.textContent = "RSVP Confirmed";
+        confirmationMessage.textContent = "We already have your RSVP confirmation. We can't wait to celebrate with you!";
+      } else {
+        confirmationStatus.textContent = "❌ Declined";
+        confirmationStatus.className = "confirmation-status declined";
+        confirmationIcon.textContent = "💭";
+        confirmationTitle.textContent = "RSVP Declined";
+        confirmationMessage.textContent = "We’re sorry you can’t make it, but thank you for responding!";
+      }
+
+      // Populate additional guests list (if any)
+      if (additionalGuestsContainer && additionalGuestsList) {
+        const guestList = (result.additionalGuests || "").split(/\r?\n|,\s*/).map(g => g.trim()).filter(Boolean);
+        if (guestList.length > 0) {
+          additionalGuestsContainer.classList.remove("hidden");
+          additionalGuestsList.innerHTML = "";
+          guestList.forEach(g => {
+            const li = document.createElement("li");
+            li.textContent = g;
+            additionalGuestsList.appendChild(li);
+          });
+        } else {
+          additionalGuestsContainer.classList.add("hidden");
+        }
+      }
+
+      submittedSection.classList.remove("hidden");
+      hookSearchReloadButtons(submittedSection);
+      return;
+    }
+
+    // --- Continue original registration logic if attendance not yet answered ---
     guestData = result;
     const planned = Number(result.plannedGuests || 0);
-    const prefillList = (result.additionalGuests || "")
-      .split(/\r?\n|,\s*/).map(s => s.trim()).filter(Boolean);
+    const prefillList = (result.additionalGuests || "").split(/\r?\n|,\s*/).map(s => s.trim()).filter(Boolean);
 
     const guestCountInput = document.getElementById("guestCount");
     guestCountInput.value = planned;
@@ -284,16 +421,23 @@ async function checkName() {
     if (result.alreadyRegistered === "Yes") {
       const remainingSeats = planned - Number(result.registeredGuests || 0);
       if (remainingSeats <= 0) {
-        document.getElementById("checkBtn").style.display = "none";
         editingEnabled = false;
-        document.getElementById("status").innerText = "✅ Completed. Already Registered. You want to edit?";
-        renderGuestInputs(planned, prefillList, result.name);
-        setFormEditable(false);
-        document.getElementById("submitSection").classList.add("hidden");
-        document.getElementById("updateSection").classList.add("hidden");
-        document.getElementById("rsvpForm").classList.add("hidden");
-        document.getElementById("editPrompt").classList.remove("hidden");
-        document.getElementById("editButtons").classList.remove("hidden");
+
+        const elementsToHide = [
+          "guestDetails", "guestName", "checkBtn", "guestInputs",
+          "rsvpForm", "editButtons", "editPrompt", "status",
+          "submitSection", "updateSection"
+        ];
+        elementsToHide.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.add("hidden");
+        });
+
+        const section = document.getElementById("rsvpSubmittedSection");
+        if (section) {
+          section.classList.remove("hidden");
+          hookSearchReloadButtons(section);
+        }
       } else {
         editingEnabled = false;
         document.getElementById("checkBtn").style.display = "none";
@@ -307,8 +451,17 @@ async function checkName() {
       }
     } else {
       editingEnabled = true;
-      document.getElementById("status").innerText =
-        `🎉 Welcome ${result.name}! You have ${planned} planned guests under your name.`;
+const statusEl = document.getElementById("status");
+statusEl.innerText = `🎉 Welcome ${result.name}! We have reserved ${planned} seat/s for you.`;
+statusEl.style.textAlign = "center";
+        const elementsToHide = [
+          "checkBtn", "guestDetails", "guestName"
+         
+        ];
+        elementsToHide.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.add("hidden");
+        });
       renderGuestInputs(planned, prefillList, result.name);
       setFormEditable(true);
       document.getElementById("rsvpForm").classList.remove("hidden");
@@ -320,14 +473,47 @@ async function checkName() {
     attendanceRadios.forEach(r => r.addEventListener('change', updateVisibilityByAttendance));
     updateVisibilityByAttendance();
 
-  } catch (err) {
-    console.error("Error in checkName:", err);
-    document.getElementById("status").innerText = "⚠️ Error connecting to server. Check console.";
+} catch (err) {
+  console.error("Error in checkName:", err);
+
+  const statusEl = document.getElementById("status");
+  statusEl.innerHTML = `
+    <div style="
+      background: linear-gradient(180deg, #f8fbff, #eef3f8);
+      border: 1px solid #d8e2ec;
+      box-shadow: 0 4px 16px rgba(15, 39, 69, 0.08);
+      padding: 20px 25px;
+      border-radius: 10px;
+      color: #334155;
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+    ">
+      <p style="margin:0 0 12px;">Error connecting to the server.</p>
+      <button id="refreshBtn" style="
+        background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 15px;
+        font-family: 'Playfair Display', serif;
+        transition: background 0.3s ease, transform 0.15s ease;
+      ">Refresh</button>
+    </div>
+  `;
+
+  const refreshBtn = document.getElementById("refreshBtn");
+  if (refreshBtn) {
+    refreshBtn.addEventListener("mouseover", () => refreshBtn.style.transform = "scale(1.05)");
+    refreshBtn.addEventListener("mouseout", () => refreshBtn.style.transform = "scale(1)");
+    refreshBtn.addEventListener("click", () => location.reload());
   }
-  finally { 
-    showLoadingOverlay(false);  // ✅ added
-    setBusy(document.getElementById('checkBtn'),false); 
-    announce('Ready'); 
+}
+ finally {
+    showLoadingOverlay(false);
+    setBusy(document.getElementById('checkBtn'), false);
+    announce('Ready');
   }
 }
 
@@ -365,11 +551,11 @@ function hideFormAndButtons() {
 // ============================
 async function submitRSVP() {
   document.getElementById("checkBtn").style.display = "inline-block";
-  const _sbtn=document.getElementById('submitBtn'); 
+  const _sbtn = document.getElementById('submitBtn'); 
   setBusy(_sbtn,true,'Submitting…'); 
   announce('Submitting your RSVP…');
 
-  showLoadingOverlay(true, 'Submitting your RSVP…'); // ✅ added
+  showLoadingOverlay(true, 'Submitting your RSVP…');
 
   if (!guestData) return alert("Please check your name first!");
 
@@ -403,8 +589,19 @@ async function submitRSVP() {
     const controller2 = new AbortController();
     const response = await withTimeout(fetch(WEB_APP_URL, { method: "POST", body: data, signal: controller2.signal }), 15000, controller2);
     const result = await response.json();
-    document.getElementById("status").innerText = result.message;
-
+   const status = document.getElementById("status");
+  status.innerHTML = `
+    <div class="rsvp-success-box">
+      <h2>${attendance === "Yes" ? "💙 RSVP Submitted Successfully!" : "💭 RSVP Noted"}</h2>
+      <p>
+        Thank you, ${guestData.name}! 
+        ${attendance === "Yes" 
+          ? "We’ve received your response and can’t wait to see you!" 
+          : "We’re sorry you can’t make it. Thank you for letting us know!"}
+      </p>
+      <button onclick="location.href='#home'" class="btn alt">Back to Home</button>
+    </div>
+  `;
     setFormEditable(false);
     editingEnabled = false;
     hideFormAndButtons();
@@ -413,10 +610,15 @@ async function submitRSVP() {
     document.getElementById("status").innerText = "⚠️ Failed to submit RSVP. Check console.";
   }
   finally { 
-    showLoadingOverlay(false);  // ✅ added
+    showLoadingOverlay(false);
     setBusy(document.getElementById('submitBtn'),false); 
     announce('Ready'); 
   }
+}
+function showSuccessMessage() {
+  document.getElementById("rsvpForm").classList.add("hidden");
+  document.getElementById("rsvpSuccessMessage").classList.remove("hidden");
+  launchConfetti(); // optional, for celebration 🎉
 }
 
 // === RSVP UX Helpers ===

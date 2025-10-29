@@ -14,7 +14,7 @@
   --shadow:0 12px 34px rgba(10,20,44,.08);
   --max:1100px;
 }
-
+.readonly{ pointer-events: auto;background:#f3f6fa; color:#46556b }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--bg-a),var(--bg-b))}
 img{max-width:100%;height:auto;display:block}
@@ -120,58 +120,105 @@ img.leaf {
   z-index: 0;
   will-change: transform;
 }
-
-/* Keep hero overlay between leaves and text (for readability) */
-.hero.with-bg::before {
-  z-index: 0;  /* 👈 changed from 1 to 0 */
+/* =========================
+   HEADER (Sticky / Fixed)
+========================= */
+:root {
+  --nav-h: 88px; /* default header height for desktop */
 }
 
-
-.hero-wrap {
-  position: relative;
-  z-index: 2;              /* ✅ keep text in front */
+@media (max-width: 768px) {
+  :root {
+    --nav-h: 64px; /* header height for mobile */
+  }
 }
 
-
-.hero {
-  /* Remove large top padding so flex can truly center it */
-  padding: 0;
-  position: relative;
-  overflow: hidden;
-
-  /* Center content vertically & horizontally */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;    /* full screen height */
-  text-align: center;
+/* If the navbar is fixed with background */
+header.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.9);  /* slight transparency looks cleaner */
+  backdrop-filter: blur(8px);            /* subtle glass effect */
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid #e6ebf2;
 }
-
-
+/* =========================
+   HERO SECTION
+========================= */
 .hero.with-bg {
   position: relative;
-  min-height: 100vh;                     /* Full screen height */
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
 
-  /* Background image */
-  background: url('assets/images/sample2.jpg') center center / cover no-repeat;
-  color: #fff;
+  background-image: url('assets/images/frontpage4.jpg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center 40%;
+  padding-inline: clamp(12px, 3vw, 32px);
+
+  /* 🪄 NEW: Remove margin-top and use padding-top instead */
+  margin-top: 0;
+  padding-top: var(--nav-h);  /* offset the TEXT only */
 }
 
+/* =========================
+   RESPONSIVE ADJUSTMENTS
+========================= */
+@media (max-width: 992px) {
+  .hero.with-bg {
+    background-position: 50% 35%;
+    min-height: calc(90dvh - var(--nav-h));
+  }
+}
+
+/* =========================
+   📱 Mobile Optimized`
+========================= */
+@media (max-width: 600px) {
+  /* .hero.with-bg {
+    background-image: url('assets/images/frontpage_mobile.jpg');
+    background-position: 60% 30%;
+    min-height: calc(80dvh - var(--nav-h));
+    padding-bottom: 14vh;
+  } */
+
+  .hero-wrap {
+    gap: 14px;
+    max-width: 92vw;
+  }
+
+  .names {
+    font-size: clamp(30px, 8.5vw, 44px);
+    line-height: 1.08;
+  }
+
+  .hero-wrap p.lede {
+    font-size: clamp(13px, 3.6vw, 15px);
+  }
+
+  .date-pill .btn {
+    padding: 10px 14px;
+    font-size: 14px;
+    border-radius: 12px;
+  }
+}
+
+/* =========================
+   HERO TEXT & OVERLAY
+========================= */
 .hero.with-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);       /* Overlay for text readability */
-  z-index: 0;
+  content: none;
 }
 
 .hero-wrap {
   position: relative;
-  z-index: 1;                           /* Content stays above overlay */
+  z-index: 1;
   display: grid;
   gap: 28px;
   justify-content: center;
@@ -179,19 +226,76 @@ img.leaf {
   margin: 0 auto;
 }
 
+.hero-wrap h1,
+.hero-wrap p {
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.hero-wrap p.lede {
+  color: #f5f5f5;
+}
+
 .names {
   font-size: clamp(44px, 8vw, 78px);
 }
 
 .names .amp {
-  font-size: .75em;
-  opacity: .8;
-  margin-inline: .15em;
+  font-size: 0.75em;
+  opacity: 0.8;
+  margin-inline: 0.15em;
 }
 
 .date-pill {
   margin-top: 10px;
 }
+
+
+/* =========================
+   🧽 Clean Overlay & Text
+========================= */
+.hero.with-bg::before {
+  content: none; /* no dark overlay */
+}
+
+.hero-wrap {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 28px;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-wrap h1,
+.hero-wrap p {
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.hero-wrap p.lede {
+  color: #f5f5f5;
+}
+
+.names {
+  font-size: clamp(44px, 8vw, 78px);
+}
+
+.names .amp {
+  font-size: 0.75em;
+  opacity: 0.8;
+  margin-inline: 0.15em;
+}
+
+.date-pill {
+  margin-top: 10px;
+}
+
+.section:first-of-type {
+  margin-top: 0;
+}
+
 
 .hero-card {
   background: var(--card);
@@ -245,7 +349,69 @@ img.leaf {
     opacity: 1;
   }
 }
+/* Story */
+/* Container layout */
+.story-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;                        /* space between text and image */
+  max-width: 1100px;
+  margin: 0 auto;
+  flex-wrap: wrap;                  /* stack on mobile */
+  padding: 40px 20px;
+}
 
+/* Text section */
+.story-text {
+  flex: 1 1 50%;
+  min-width: 300px;
+}
+
+.story-text h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 2rem;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.story-text p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+  text-align: justify;
+}
+
+/* Image section */
+.story-image {
+  flex: 1 1 45%;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.story-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+  .story-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .story-text p {
+    text-align: center;
+  }
+  .story-image img {
+    max-width: 90%;
+    margin-top: 20px;
+  }
+}
 
 /* CARDS */
 .card{
@@ -261,136 +427,111 @@ img.leaf {
 .stack-10 > * + *{margin-top:10px}
 
 /* Schedule Section */
-.schedule-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+.schedule-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(320px,1fr));
+  gap:2rem;
+  align-items:stretch;
 }
 
-.venue-card {
-  position: relative; /* needed for hover overlay */
-  display: flex;
-  align-items: flex-start;
-  background: #fff;
-  border-radius: 16px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  overflow: hidden; /* ensures overlay stays inside card */
+/* Card Layout */
+.venue-card{
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  background:#fff;
+  border:1px solid #e4e9f0;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 4px 12px rgba(0,0,0,.05);
+  transition:transform .2s ease, box-shadow .2s ease;
 }
 
-.venue-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+.venue-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 18px rgba(0,0,0,.08);
 }
 
-.venue-icon img {
-  width: 50px;
-  height: 50px;
-  margin-right: 1rem;
+/* ✅ Fixed visible image (no hover anymore) */
+.venue-image{
+  width:100%;
+  height:220px;
+  line-height:0;
+  overflow:hidden;
 }
 
-.venue-details {
-  flex: 1;
+.venue-image img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  border-radius:0;
 }
 
-.venue-title {
-  font-weight: 700;
-  color: #1c84c4;
-  margin-bottom: 0.25rem;
+/* Venue details */
+.venue-details{
+  flex:1;
+  padding:1.25rem 1.5rem;
+  text-align:center;
 }
 
-.venue-time {
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+.venue-title{
+  font-weight:700;
+  color:#1c84c4;
+  margin-bottom:.25rem;
 }
 
-.venue-name {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
+.venue-time{
+  font-size:.95rem;
+  font-weight:600;
+  margin-bottom:.5rem;
 }
 
-.venue-addr {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 1rem;
+.venue-name{
+  font-size:1rem;
+  font-weight:600;
+  margin-bottom:.25rem;
 }
 
-/* ==========================================
-   📍 Venue Buttons Container Styling
-   Keeps "View Map" and "Directions" buttons 
-   side by side and visible above the overlay.
-========================================== */
-.venue-buttons {
-  display: flex;          /* places buttons in a horizontal row */
-  gap: 0.5rem;            /* space between each button */
-  flex-wrap: wrap;        /* allows wrapping to next line on smaller screens */
-  position: relative;     /* enables z-index positioning */
-  z-index: 2;             /* ensures buttons stay above the hover image */
+.venue-addr{
+  font-size:.9rem;
+  color:#555;
+  margin-bottom:1rem;
 }
 
-/* ==========================================
-   🧭 Button Styling (Alt Style)
-   Default state: transparent background with 
-   orange border and text.
-========================================== */
-.btn.alt {
-  background: transparent;       /* transparent background by default */
-  border: 1px solid #1c6ac4;     /* orange border color */
-  color: #050505;               /* orange text color */
-  font-size: 0.9rem;            /* slightly smaller text size */
-  padding: 0.4rem 0.8rem;       /* vertical and horizontal spacing inside */
-  border-radius: 6px;           /* rounded corners */
-  text-decoration: none;       /* removes underline on links */
-  transition: all 0.2s ease;    /* smooth transition when hovering */
+/* Buttons */
+.venue-buttons{
+  display:flex;
+  justify-content:center;
+  gap:.5rem;
+  flex-wrap:wrap;
+  margin-top:.5rem;
 }
 
-/* ==========================================
-   ✨ Button Hover Effect
-   When hovered: background turns orange,
-   text becomes white, border blends in.
-========================================== */
-.btn.alt:hover {
-  background: #7373b6;    /* fill background with orange */
-  color: #080808;           /* switch text color to white */
+.btn.alt{
+  background:transparent;
+  border:1px solid #1c6ac4;
+  color:#0f2745;
+  padding:.45rem .9rem;
+  border-radius:999px;
+  text-decoration:none;
+  transition:all .2s ease;
+}
+.btn.alt:hover{
+  background:#1c6ac4;
+  color:#fff;
 }
 
-
-.venue-hover-image {
-  position: absolute;          /* positions the overlay relative to the venue card */
-  inset: 0;                    /* makes the overlay cover the entire card */
-  display: flex;               /* enables flexbox for easy centering */
-  justify-content: center;     /* centers the image horizontally */
-  align-items: center;         /* centers the image vertically */
-  background: rgba(249, 245, 245, 0.55);/* semi-transparent black background overlay */
-  opacity: 0;                  /* initially hidden (fully transparent) */
-  pointer-events: none;        /* allows clicks to pass through to buttons/text */
-  transition: opacity 0.4s ease; /* smooth fade-in/fade-out effect */
-  z-index: 1;                  /* places the overlay behind the buttons/text */
+/* Responsive */
+@media (max-width:600px){
+  .venue-image{ height:180px; }
 }
 
-
-.venue-hover-image img {
-  max-width: 85%;
-  max-height: 65%;             /* ✅ limits image height so it won’t overlap buttons */
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  transform: scale(0.95) translateY(0px);
-  transition: transform 0.4s ease;
-  object-fit: cover;          /* keeps the image proportion */
+/* 🔥 Remove old hover image */
+.venue-hover-image{
+  display:none !important;
 }
-
-.venue-card:hover .venue-hover-image {
-  opacity: 1;
-}
-
-.venue-card:hover .venue-hover-image img {
-  transform: scale(1) translateY(-40px); /* 👈 moves up slightly but stays in bounds */
-}
-
 
 
 /* QUOTE */
@@ -696,4 +837,156 @@ footer{padding:40px 0;color:var(--muted);text-align:center}
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-4px); }
   to { opacity: 1; transform: translateY(0); }
+}
+/* === RSVP Confirmation Styles === */
+.rsvp-confirmation {
+  background: linear-gradient(180deg, #f8fbff, #eef3f8);
+  border: 1px solid #d8e2ec;
+  box-shadow: 0 10px 30px rgba(15, 39, 69, 0.08);
+  padding: 40px 30px;
+  border-radius: 20px;
+  text-align: center;
+  margin: 28px auto;
+  max-width: 520px;
+  animation: fadeInUp 0.6s ease;
+}
+
+/* === Confirmation Icon === */
+.confirmation-icon {
+  font-size: 36px;
+  color: #2d72d9;
+  background: #e0f2fe;
+  border-radius: 50%;
+  padding: 10px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 6px rgba(45, 114, 217, 0.15);
+}
+
+/* === Confirmation Titles === */
+.confirmation-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: #0f2745;
+  margin-bottom: 10px;
+}
+
+.confirmation-text {
+  font-size: 18px;
+  color: #1e3a5f;
+  margin-bottom: 6px;
+}
+
+.confirmation-subtext {
+  color: #4b5a6b;
+  font-size: 15px;
+  margin-bottom: 28px;
+}
+
+/* === Response Box === */
+.confirmation-box {
+  background: linear-gradient(180deg, #ffffff, #f6f9fc);
+  border: 1px solid #d0d7e1;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 28px;
+  box-shadow: inset 0 0 0 1px rgba(15, 39, 69, 0.05);
+}
+
+.confirmation-label {
+  color: #334155;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+/* === RSVP Status === */
+.confirmation-status.accepted {
+  background: #e0f2fe;
+  color: #0369a1;
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 1px 2px rgba(3, 105, 161, 0.1);
+}
+
+.confirmation-status.declined {
+  background: #f1f5f9;
+  color: #64748b;
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 1px 2px rgba(100, 116, 139, 0.1);
+}
+
+/* === Button Styling === */
+.confirmation-btn {
+  background: linear-gradient(to right, #0f2745, #14355f);
+  color: #ffffff;
+  font-size: 16px;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-family: 'Playfair Display', serif;
+  box-shadow: 0 6px 20px rgba(15, 39, 69, 0.15);
+  transition: all 0.25s ease;
+}
+
+.confirmation-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(15, 39, 69, 0.22);
+  background: linear-gradient(to right, #14355f, #1d4e89);
+}
+
+/* === Guest List Styling === */
+.confirmation-guests-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 20px;
+  color: #14355f;
+  font-size: 16px;
+}
+
+.confirmation-guests-list li {
+  background: #f1f5fb;
+  margin: 4px auto;
+  padding: 8px 12px;
+  border-radius: 8px;
+  width: 80%;
+  box-shadow: inset 0 0 0 1px #d6e2f3;
+}
+
+/* === Hidden State === */
+.hidden {
+  display: none !important;
+}
+
+/* === Animations === */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
