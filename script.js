@@ -606,9 +606,11 @@ async function submitRSVP() {
           ? "We’ve received your response and can’t wait to see you!" 
           : "We’re sorry you can’t make it. Thank you for letting us know!"}
       </p>
-      <button onclick="location.href='#home'" class="btn alt">Back to Home</button>
+      <button class="confirmation-btn" data-action="search-again">Search Another Guest</button>
     </div>
   `;
+        hideFormAndButtons();
+      hookSearchReloadButtons(status); // bind inside the newly injected HTML
     setFormEditable(false);
     editingEnabled = false;
     hideFormAndButtons();
@@ -683,3 +685,13 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+  document.getElementById("backHomeBtn").addEventListener("click", () => {
+    // fade out the RSVP box
+    const box = document.querySelector(".rsvp-success-box");
+    box.classList.add("fade-out");
+
+    // after fade, scroll to home
+    setTimeout(() => {
+      location.href = "#home";
+    }, 800); // match with CSS transition duration
+  });

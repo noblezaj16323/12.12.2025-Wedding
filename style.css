@@ -848,7 +848,7 @@ cite{display:block;margin-top:10px;color:var(--muted);font-style:normal}
 .ent-grid{
   display:grid;
   grid-template-columns: repeat(12, 1fr);   /* 12-col desktop grid */
-  gap: clamp(12px, 2vw, 24px) clamp(16px, 3vw, 40px);
+gap: clamp(6px, 1.2vw, 16px) clamp(16px, 3vw, 40px);
   max-width: min(1100px, 92vw);
   margin: 0 auto;                           /* CENTER whole block */
   align-items:start;
@@ -1287,4 +1287,48 @@ footer{padding:40px 0;color:var(--muted);text-align:center}
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* ---------- Not-Found Box ---------- */
+.not-found {
+  background: #f8fcfe;
+  border-radius: 14px;
+  padding: 16px 20px;
+  text-align: center;
+  line-height: 1.5;
+  max-width: 700px;
+  margin: 20px auto;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+/* Equal-size buttons */
+.not-found .contact-btn,
+.not-found .confirmation-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 200px;    /* 👈 same width */
+  height: 44px;        /* 👈 same height */
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 25px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 10px 6px;
+}
+
+/* Button colors */
+.not-found .contact-btn {
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+}
+.not-found .confirmation-btn {
+  background: linear-gradient(135deg, #0f2745, #14355f);
+}
+
+/* Optional hover effect */
+.not-found button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
 }
