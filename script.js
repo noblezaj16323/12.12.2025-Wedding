@@ -327,6 +327,14 @@ async function checkName() {
     const result = await response.json();
 
     if (!result.exists) {
+              const elementsToHide = [
+          "checkBtn", "guestDetails", "guestName"
+         
+        ];
+        elementsToHide.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.add("hidden");
+        });
       const status = document.getElementById("status");
       status.innerHTML = `
         <div class="not-found">
@@ -348,7 +356,6 @@ async function checkName() {
     if (attendance === "yes" || attendance === "no") {
       editingEnabled = false;
       hideFormAndButtons();
-
       // hide the textbox + continue button
       ["guestName","checkBtn"].forEach(id => {
         const el = document.getElementById(id);
