@@ -206,6 +206,14 @@ position: absolute;
   z-index: 2;
 }
 
+.img-zoom {
+  transition: transform 0.3s ease;
+}
+
+.img-zoom:hover {
+  transform: scale(1.05);
+}
+
 /* =========================
    RESPONSIVE ADJUSTMENTS
 ========================= */
