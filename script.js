@@ -226,8 +226,8 @@ function renderGuestInputs(count, prefill = [], mainName = "") {
   first.type = "text";
   first.id = "guest_1";
   first.name = "guest_names[]";
-  first.placeholder = "Guest 1 (You)";
-  first.value = mainName || "";
+  first.placeholder = "Guest 1 full name"; // ✅ matches other placeholders
+  first.value = "";
 
   // hard-unlock in case something set it elsewhere
   first.readOnly = false;

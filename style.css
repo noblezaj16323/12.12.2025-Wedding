@@ -34,7 +34,7 @@ a{color:var(--navy);text-decoration:none}
 .center{text-align:center}
 .subtle{color:var(--muted)}
 .pill{display:inline-block;border:1px solid var(--line);padding:.35rem .75rem;border-radius:999px;font-size:.9rem;color:var(--navy);background:#fff}
-.h-giant{text-align:center;font-family:'Great Vibes',cursive;font-weight:400;line-height:1;letter-spacing:.5px}
+.h-giant{text-align:center;font-family: 'La Lexus Serif', serif;;font-weight:400;line-height:1;letter-spacing:.5px}
 .h-giant span{display:inline-block}
 .h1{font-family:'Great Vibes',cursive;
   font-size:clamp(2rem,4vw,3rem);
@@ -106,6 +106,26 @@ header{
 .hero, .section, footer {
   position: relative;
   z-index: 2;
+}
+/* Reduce bottom spacing of hero section */
+.hero, 
+.hero.with-bg, 
+.hero .container {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+/* Make sure the RSVP button doesn't add extra space */
+.hero button,
+.hero .cta,
+.hero .rsvp-btn {
+  margin-bottom: 0 !important;
+}
+
+/* Optional: balance section spacing globally */
+section {
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
 
@@ -187,6 +207,7 @@ position: absolute;
   background-size: contain;
   background-position: center 40%;
   z-index: 1;
+  
 
   /* Smooth edges */
   -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%);
@@ -259,11 +280,20 @@ position: absolute;
     font-size: clamp(14px, 3.2vw, 16px);
   }
 
-  .date-pill .btn {
-    padding: 11px 16px;
-    font-size: 15px;
-    border-radius: 13px;
-  }
+ .date-pill {
+  position: relative;
+}
+
+.date-pill .btn {
+  position: absolute;
+  bottom: 10px;   /* adjust spacing */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 11px 16px;
+  font-size: 15px;
+  border-radius: 13px;
+}
+
 
   /* Tablet-specific grid adjustments */
   .grid-3 {
@@ -286,6 +316,7 @@ position: absolute;
   .story-image {
     flex: none;
     min-width: auto;
+    margin-bottom: 1px;
   }
 
   .story-image img {
@@ -341,21 +372,24 @@ position: absolute;
     background-position: 60% 30%;
     background-size: contain;
     min-height: calc(80dvh - var(--nav-h));
-    padding-bottom: 14vh;
+    padding-bottom: 50vh;
   }
 
   .hero-wrap {
     gap: 14px;
     max-width: 92vw;
+     margin-top: 10vh; 
   }
 
   .names {
     font-size: clamp(30px, 8.5vw, 44px);
     line-height: 1.08;
+    padding-bottom: 50vh;
   }
 
   .hero-wrap p.lede {
     font-size: clamp(13px, 3.6vw, 15px);
+      padding-bottom: 2vh;
   }
 
   .date-pill .btn {
@@ -394,6 +428,7 @@ position: absolute;
 
 .names {
   font-size: clamp(44px, 8vw, 78px);
+  
 }
 
 .names .amp {
@@ -404,6 +439,7 @@ position: absolute;
 
 .date-pill {
   margin-top: 10px;
+  font-family: 'La Lexus Serif', serif;
 }
 
 
@@ -568,6 +604,24 @@ position: absolute;
     margin-top: 20px;
   }
 }
+/* Reduce spacing before the Schedule & Venues heading */
+#schedule, 
+.schedule-section, 
+.section h2 {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Also reduce any bottom margin of the image above */
+.gallery img:last-child,
+.previous-section {
+  margin-bottom: 8px !important; /* adjust to your liking */
+}
+
+/* Optional: ensure consistent spacing */
+.section {
+  padding-block: 40px; /* reduces both top and bottom */
+}
 
 /* CARDS */
 .card{
@@ -601,6 +655,7 @@ position: absolute;
   overflow:hidden;
   box-shadow:0 4px 12px rgba(0,0,0,.05);
   transition:transform .2s ease, box-shadow .2s ease;
+  margin-top: 50px;
 }
 
 .venue-card:hover{
@@ -725,8 +780,8 @@ cite{display:block;margin-top:10px;color:var(--muted);font-style:normal}
 }
 
 /* Headings + lists */
-.script{ font-family:'Great Vibes',cursive; }
-.h-sub{ font-size: clamp(1.1rem, 2.2vw, 1.6rem); margin: 0 0 .35rem; font-weight: normal; }
+.script{ font-family: 'La Lexus Serif', serif; }
+.h-sub{ font-size: clamp(1.3rem, 2.8vw, 2rem); margin: 0 0 .35rem; font-weight: normal; }
 .no-bullets{ list-style:none; margin:0; padding:0; color:#5670a3}
 .no-bullets.tight li{ margin:.22rem 0; color:#5670a3}
 .cols-2{ display:grid; grid-template-columns:1fr 1fr; gap: 8px 28px; }
@@ -958,6 +1013,7 @@ footer{padding:40px 0;color:var(--muted);text-align:center}
 }
 
 .contact-btn {
+  margin-bottom: 14px;
   margin-top: 14px;
   padding: 8px 16px; /* Fixed typo */
   border: none;
