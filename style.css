@@ -158,8 +158,9 @@ header.site-nav {
 
   background-image: url('assets/images/frontpage4.jpg');
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-position: center 40%;
+  background-position-y: -60px;
   padding-inline: clamp(12px, 3vw, 32px);
 
   /* 🪄 NEW: Remove margin-top and use padding-top instead */
@@ -170,10 +171,108 @@ header.site-nav {
 /* =========================
    RESPONSIVE ADJUSTMENTS
 ========================= */
-@media (max-width: 992px) {
+@media (max-width: 1440px) and (min-width: 769px) {
   .hero.with-bg {
     background-position: 50% 35%;
+    background-size: contain;
+    background-position-y: 0px;
     min-height: calc(90dvh - var(--nav-h));
+  }
+}
+
+/* =========================
+   📱 Tablet Optimized
+========================= */
+@media (max-width: 768px) and (min-width: 601px) {
+  .hero.with-bg {
+    background-position: 55% 35%;
+    background-size: contain;
+    min-height: calc(85dvh - var(--nav-h));
+    padding-bottom: 12vh;
+  }
+
+  .hero-wrap {
+    gap: 20px;
+    max-width: 88vw;
+  }
+
+  .names {
+    font-size: clamp(38px, 7vw, 52px);
+    line-height: 1.1;
+  }
+
+  .hero-wrap p.lede {
+    font-size: clamp(14px, 3.2vw, 16px);
+  }
+
+  .date-pill .btn {
+    padding: 11px 16px;
+    font-size: 15px;
+    border-radius: 13px;
+  }
+
+  /* Tablet-specific grid adjustments */
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Story section tablet adjustments */
+  .story-container {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+  }
+
+  .story-text {
+    flex: none;
+    min-width: auto;
+    margin-bottom: 20px;
+  }
+
+  .story-image {
+    flex: none;
+    min-width: auto;
+  }
+
+  .story-image img {
+    max-width: 80%;
+  }
+
+  /* Gallery tablet adjustments */
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Schedule grid tablet adjustments */
+  .schedule-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  /* Venue cards tablet adjustments */
+  .venue-image {
+    height: 200px;
+  }
+
+  /* Swatches tablet adjustments */
+  .swatches {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  /* Entourage tablet adjustments */
+  .ent-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .ent-grid > * {
+    grid-column: 1 / -1 !important;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cols-2 {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -181,12 +280,12 @@ header.site-nav {
    📱 Mobile Optimized`
 ========================= */
 @media (max-width: 600px) {
-  /* .hero.with-bg {
-    background-image: url('assets/images/frontpage_mobile.jpg');
+  .hero.with-bg {
     background-position: 60% 30%;
+    background-size: contain;
     min-height: calc(80dvh - var(--nav-h));
     padding-bottom: 14vh;
-  } */
+  }
 
   .hero-wrap {
     gap: 14px;
