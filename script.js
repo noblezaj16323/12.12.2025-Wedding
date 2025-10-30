@@ -515,7 +515,6 @@ statusEl.style.textAlign = "center";
 
 } catch (err) {
   console.error("Error in checkName:", err);
-
   const statusEl = document.getElementById("status");
   statusEl.innerHTML = `
     <div style="
@@ -647,10 +646,63 @@ async function submitRSVP() {
     setFormEditable(false);
     editingEnabled = false;
     hideFormAndButtons();
-  } catch (err) {
-    console.error("Error in submitRSVP:", err);
-    document.getElementById("status").innerText = "⚠️ Failed to submit RSVP. Check console.";
+  }  catch (err) {
+  console.error("Error in submitRSVP:", err);
+                const elementsToHide = [
+          "checkBtn", "guestDetails", "guestName", "rsvpForm"
+        ];
+        elementsToHide.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.add("hidden");
+        });
+        
+    // 🔄 Reset RSVP data and fields
+  if (guestData) {
+    guestData.alreadyRegistered = "";
+    guestData.attendance = "";
   }
+  document.querySelectorAll('input[name="attendance"]').forEach(r => r.checked = false);
+  document.getElementById("guestCount").value = "";
+  document.getElementById("guestNames").value = "";
+  const guestInputs = document.querySelector("#guestInputs");
+  if (guestInputs) guestInputs.innerHTML = "";
+  const statusEl = document.getElementById("status");
+  if (!statusEl) return; // Prevents errors if #status doesn't exist
+
+  statusEl.innerHTML = `
+    <div style="
+      background: linear-gradient(180deg, #f8fbff, #eef3f8);
+      border: 1px solid #d8e2ec;
+      box-shadow: 0 4px 16px rgba(15, 39, 69, 0.08);
+      padding: 20px 25px;
+      border-radius: 10px;
+      color: #334155;
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+    ">
+      <p style="margin:0 0 12px;">Error in connecting to the server.</p>
+      <button id="refreshBtn" style="
+        background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 15px;
+        font-family: 'Playfair Display', serif;
+        transition: background 0.3s ease, transform 0.15s ease;
+      ">Refresh</button>
+    </div>
+  `;
+
+  const refreshBtn = document.getElementById("refreshBtn");
+  if (refreshBtn) {
+    refreshBtn.addEventListener("mouseover", () => (refreshBtn.style.transform = "scale(1.05)"));
+    refreshBtn.addEventListener("mouseout", () => (refreshBtn.style.transform = "scale(1)"));
+    refreshBtn.addEventListener("click", () => location.reload());
+  }
+}
+
   finally { 
     showLoadingOverlay(false);
     setBusy(document.getElementById('submitBtn'),false); 

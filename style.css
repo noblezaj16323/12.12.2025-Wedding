@@ -1348,3 +1348,41 @@ footer{padding:40px 0;color:var(--muted);text-align:center}
   opacity: 0.9;
   transform: translateY(-2px);
 }
+
+
+
+/* copyright text */
+.footer-container p {
+  margin: 0;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+/* "Go to Homepage" button */
+.footer-container .pill {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 22px;
+  background: white;
+  color: #2f3e66;
+  border: 1px solid #cbd6e2;
+  border-radius: 9999px;
+  text-decoration: none;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-family: 'La Lexus Serif', serif;
+  transition: all 0.3s ease;
+}
+
+.footer-container .pill:hover {
+  background: #eaf1f9;
+  border-color: #a8c2e0;
+}
+
+/* Optional: Reduce spacing for smaller devices */
+@media (max-width: 480px) {
+  .footer-container {
+    padding: 24px 12px;
+  }
+  .footer-container .pill {
+    padding: 8px 18px;
+  }
+}
