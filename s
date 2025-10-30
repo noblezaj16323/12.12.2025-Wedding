@@ -1,70 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Full-Screen Responsive Background</title>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Youngest Serif</title>
+  <style>
+    body {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      margin: 2rem;
+      line-height: 1.5;
+      color: #222;
+      background: #f7f8fb;
+    }
 
-  body, html {
-    height: 100%;
-    font-family: 'Playfair Display', serif;
-  }
+    .title {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      margin: 0 0 0.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
 
-  .hero-section {
-    background-image: url('assets/images/frontpage.jpg'); /* Replace with your image */
-    background-size: cover;         /* ✅ Fill entire screen */
-    background-position: center;    /* Keep focus centered */
-    background-repeat: no-repeat;
-    height: 100vh;                  /* Full viewport height */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    color: white;
-    padding: 0 20px;
-  }
+    .subtitle {
+      font-family: "La Lexus Serif", Georgia, serif; /* your custom serif first */
+      font-size: 1.05rem;
+      color: #4b5b87;
+      margin-bottom: 1.2rem;
+    }
 
-  /* Optional dark overlay for text contrast */
-  .hero-section::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.35);
-    z-index: 0;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 90%;
-  }
-
-  .hero-content h1 {
-    font-size: clamp(1.8rem, 5vw, 3.5rem);
-    margin-bottom: 10px;
-  }
-
-  .hero-content p {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    line-height: 1.4;
-  }
-</style>
+    .sample {
+      padding: 1rem;
+      border-left: 4px solid #dfe7ff;
+      background: white;
+      max-width: 720px;
+      box-shadow: 0 6px 18px rgba(17,24,39,0.04);
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
+  <h1 class="title">The Youngest Serif</h1>
+  <p class="subtitle">A tiny showcase using serif fonts</p>
 
-<section class="hero-section">
-  <div class="hero-content">
-    <h1>Welcome to My Page 🌅</h1>
-    <p>Your journey begins here. Designed to fit every screen.</p>
+  <div class="sample">
+    <p><strong>Serif default:</strong> This paragraph uses the page's serif stack (Georgia / Times / serif). Serifs give text a classic, readable look for headings and body copy.</p>
+    <p><em>Try changing the font-family in the CSS to see different serif styles.</em></p>
   </div>
-</section>
-
 </body>
 </html>

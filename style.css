@@ -22,6 +22,7 @@ a{color:var(--navy);text-decoration:none}
 #entourage {
   background: var(--bg-c);
   margin-top: 100px;
+
 }
 
 .container{width:min(var(--max),92vw);margin-inline:auto}
@@ -445,6 +446,7 @@ position: absolute;
     grid-template-columns: 1fr;
     gap: 16px;
   }
+
 
   .ent-grid > * {
     grid-column: 1 / -1 !important;
@@ -878,13 +880,15 @@ gap: clamp(6px, 1.2vw, 16px) clamp(16px, 3vw, 40px);
 
 /* Headings + lists */
 .script{ font-family: 'La Lexus Serif', serif; }
-.h-sub{ font-size: clamp(1.3rem, 2.8vw, 2rem); margin: 0 0 .35rem; font-weight: normal; }
+.h-sub{font-family: 'La Lexus Serif', serif; font-size: clamp(1.3rem, 2.8vw, 2rem); margin: 0 0 .35rem; font-weight: normal; }
 .no-bullets{ list-style:none; margin:0; padding:0; color:#5670a3}
-.no-bullets.tight li{ margin:.22rem 0; color:#5670a3}
+.no-bullets.tight li{margin:.22rem 0; color:#5670a3}
 .cols-2{ display:grid; grid-template-columns:1fr 1fr; gap: 8px 28px; }
 #entourage p {
-  color:#5670a3
+  color: #5670a3;
+  font-family: 'La Lexus Serif', serif;
 }
+
 /* ---------- Desktop placement (>= 900px) ---------- */
 /* Center the top block perfectly */
 .principal{ grid-column: 2 / span 10; max-width: 760px; margin: 0 auto; }
