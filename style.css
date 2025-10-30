@@ -303,50 +303,62 @@ position: absolute;
 
 /* ===== ORDER OF EVENTS ===== */
 /* ===== ORDER OF EVENTS ===== */
+/* ========== ORDER OF EVENTS SECTION ========== */
 #timeofevents {
-  padding: 40px 0 60px;
+  padding: 40px 0 32px;
   text-align: center;
+  background: #f7faff;
 }
 
-#timeofevents h2 {
+/* Title Styling */
+#timeofevents .h2 {
   width: 600px;
-  margin: 0 auto 24px;
+  max-width: 90%;
+  margin-bottom: 20px;         /* space between title and image */
   text-align: center;
+  font-family: 'Great Vibes', cursive;
+  font-size: 40px;
+  color: #0f2745;
 }
 
-/* container (same look as venue cards but smaller visual height) */
+/* Image container (the white frame) */
 .order-container {
   width: 600px;
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 90%;
+  margin-top: 50px;
   background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: 20px;
-  overflow: hidden;
+  border-radius: 24px;           /* 👈 rounded edges */
+  overflow: hidden;              /* 👈 ensures image follows the curve */
+  box-shadow: 0 6px 20px rgba(15, 39, 69, 0.08);
+  border: 1px solid #e3e8ef;
+  position: relative;            /* helps when .img-zoom uses transforms */
 }
 
-/* smaller image that matches venue card proportions */
-#timeofevents .order-container img {
+/* Image itself */
+.order-container img {
   display: block;
-  width: 80%;               /* shrink image size to 80% of container */
-  max-width: 480px;         /* cap actual width for consistent look */
+  width: 100%;
   height: auto;
-  margin: 0 auto;
-  border-radius: 12px;
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: inherit;        /* 👈 make image follow same curve */
+  transition: transform 0.4s ease;
 }
 
-/* Responsive */
+/* Optional hover zoom */
+.order-container img.img-zoom:hover {
+  transform: scale(1.03);
+}
+
+/* Responsive adjustments */
 @media (max-width: 640px) {
-  #timeofevents h2,
-  .order-container {
-    width: 90%;
+  #timeofevents h2 {
+    font-size: 32px;
+    margin-bottom: 36px;
   }
 
-  #timeofevents .order-container img {
-    width: 100%;            /* use full width on small screens */
-    max-width: 100%;
+  .order-container {
+    width: 90%;
+    border-radius: 18px;
   }
 }
 
