@@ -886,7 +886,7 @@ gap: clamp(6px, 1.2vw, 16px) clamp(16px, 3vw, 40px);
 .cols-2{ display:grid; grid-template-columns:1fr 1fr; gap: 8px 28px; }
 #entourage p {
   color: #5670a3;
-  font-family: 'La Lexus Serif', serif;
+  
 }
 
 /* ---------- Desktop placement (>= 900px) ---------- */
