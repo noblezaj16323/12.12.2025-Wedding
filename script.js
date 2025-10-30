@@ -12,6 +12,39 @@
   document.head.appendChild(style);
 })();
 
+  (function () {
+    const audio = document.getElementById('bgm');
+
+    // Try to autoplay (works on desktop)
+    const tryPlay = () => audio.play().catch(() => {});
+
+    document.addEventListener('DOMContentLoaded', tryPlay);
+
+    // Start on first user gesture (for mobile)
+    const startOnGesture = () => {
+      audio.play().finally(() => {
+        window.removeEventListener('pointerdown', startOnGesture, true);
+        window.removeEventListener('touchstart', startOnGesture, true);
+        window.removeEventListener('click', startOnGesture, true);
+        window.removeEventListener('keydown', startOnGesture, true);
+        window.removeEventListener('scroll', startOnGesture, true);
+      });
+    };
+
+    window.addEventListener('pointerdown', startOnGesture, true);
+    window.addEventListener('touchstart', startOnGesture, true);
+    window.addEventListener('click', startOnGesture, true);
+    window.addEventListener('keydown', startOnGesture, true);
+    window.addEventListener('scroll', startOnGesture, true);
+
+    // Resume when user returns to tab
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && !audio.paused) {
+        audio.play().catch(() => {});
+      }
+    });
+  })();
+
 function setNavOffset(){
   const h = document.querySelector('header.site-nav');
   if (h) document.documentElement.style.setProperty('--nav-h', h.offsetHeight + 'px');

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autoplay Music Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 100px;
+      background: linear-gradient(to bottom, #f9fafc, #e0e7ef);
+    }
+    h1 { color: #1e293b; }
+    p  { color: #475569; }
+  </style>
+</head>
+<body>
+  <h1>🎵 Autoplay Music Test</h1>
+  <p>Music should start automatically on desktop.<br>
+     On mobile, tap or scroll once to start playback.</p>
+
+  <audio id="bgm" preload="auto" loop>
+    <source src="assets/palagi2.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <script>
+  (function () {
+    const audio = document.getElementById('bgm');
+
+    // Try to autoplay (works on desktop)
+    const tryPlay = () => audio.play().catch(() => {});
+
+    document.addEventListener('DOMContentLoaded', tryPlay);
+
+    // Start on first user gesture (for mobile)
+    const startOnGesture = () => {
+      audio.play().finally(() => {
+        window.removeEventListener('pointerdown', startOnGesture, true);
+        window.removeEventListener('touchstart', startOnGesture, true);
+        window.removeEventListener('click', startOnGesture, true);
+        window.removeEventListener('keydown', startOnGesture, true);
+        window.removeEventListener('scroll', startOnGesture, true);
+      });
+    };
+
+    window.addEventListener('pointerdown', startOnGesture, true);
+    window.addEventListener('touchstart', startOnGesture, true);
+    window.addEventListener('click', startOnGesture, true);
+    window.addEventListener('keydown', startOnGesture, true);
+    window.addEventListener('scroll', startOnGesture, true);
+
+    // Resume when user returns to tab
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && !audio.paused) {
+        audio.play().catch(() => {});
+      }
+    });
+  })();
+  </script>
+</body>
+</html>
