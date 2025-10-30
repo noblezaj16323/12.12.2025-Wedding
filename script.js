@@ -200,7 +200,28 @@ const setupSmoothScroll = () => {
       if (href && href.length > 1) {
         e.preventDefault();
         const target = document.querySelector(href);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (target) {
+  e.preventDefault();
+
+  const targetY = target.getBoundingClientRect().top + window.pageYOffset;
+  const startY = window.pageYOffset;
+  const distance = targetY - startY;
+  const duration = 3000; // 👈 Increase for slower scroll (in ms)
+  let startTime = null;
+
+  function animateScroll(currentTime) {
+    if (!startTime) startTime = currentTime;
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 0.5 - Math.cos(progress * Math.PI) / 2; // ease-in-out
+    window.scrollTo(0, startY + distance * ease);
+
+    if (elapsed < duration) requestAnimationFrame(animateScroll);
+  }
+
+  requestAnimationFrame(animateScroll);
+}
+
       }
     });
   });
@@ -331,10 +352,13 @@ function updateVisibilityByAttendance() {
   }
 }
 
+
+
 // ============================
 // Check Name
 // ============================
 async function checkName() {
+  
   const _btn = document.getElementById('checkBtn');
   setBusy(_btn, true, 'Checking…');
   announce('Checking name…');
@@ -589,6 +613,7 @@ function hideFormAndButtons() {
 // Submit RSVP
 // ============================
 async function submitRSVP() {
+
   document.getElementById("checkBtn").style.display = "inline-block";
   const _sbtn = document.getElementById('submitBtn'); 
   setBusy(_sbtn,true,'Submitting…'); 
