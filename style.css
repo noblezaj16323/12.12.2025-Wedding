@@ -19,11 +19,16 @@
 html,body{margin:0;padding:0;color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--bg-a),var(--bg-b))}
 img{max-width:100%;height:auto;display:block}
 a{color:var(--navy);text-decoration:none}
+/* ===== FIX ENTOURAGE SECTION BACKGROUND & SPACING ===== */
 #entourage {
-  background: var(--bg-c);
-  margin-top: 100px;
-
+  background: var(--bg-c);   /* your light brown or light gray tone */
+  margin-top: 0;             /* remove any gap showing body background */
+  padding-top: 24px;         /* space for the title inside the section */
+  padding-bottom: 60px;      /* keep nice breathing space below */
+  position: relative;
+  z-index: 1;
 }
+
 
 .container{width:min(var(--max),92vw);margin-inline:auto}
 .section{padding:64px 0}
@@ -937,7 +942,12 @@ gap: clamp(6px, 1.2vw, 16px) clamp(16px, 3vw, 40px);
 }
 
 
-
+/* Make sure the section above (Gallery) ends flush */
+#gallery {
+  background: #fff;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
 
 /* DRESS CODE */
 .swatches{display:grid;gap:10px;grid-template-columns:repeat(8,1fr)}
@@ -1385,4 +1395,10 @@ footer{padding:40px 0;color:var(--muted);text-align:center}
   .footer-container .pill {
     padding: 8px 18px;
   }
+}
+
+/* kill global gaps; we’ll control per section */
+section {
+  margin-top: 0;
+  margin-bottom: 0;
 }
